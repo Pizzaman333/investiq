@@ -5,6 +5,7 @@ import healthIcon from '../../../../assets/icons/categories/expenses/health.svg'
 import homeIcon from '../../../../assets/icons/categories/expenses/home.svg'
 import otherIcon from '../../../../assets/icons/categories/expenses/other.svg'
 import productsIcon from '../../../../assets/icons/categories/expenses/products.svg'
+import sportHobbyIcon from '../../../../assets/icons/categories/expenses/sport-hobby.svg'
 import techIcon from '../../../../assets/icons/categories/expenses/tech.svg'
 import transportIcon from '../../../../assets/icons/categories/expenses/transport.svg'
 import utilitiesIcon from '../../../../assets/icons/categories/expenses/utilities.svg'
@@ -12,17 +13,20 @@ import additionalIncomeIcon from '../../../../assets/icons/categories/income/add
 import salaryIcon from '../../../../assets/icons/categories/income/salary.svg'
 import chevronLeft from '../../../../assets/icons/ui/chevron-left.svg'
 import chevronRight from '../../../../assets/icons/ui/chevron-right.svg'
-import type { ReportCategory } from '../../../../shared/types/report'
+import type { CategoryTotal } from '../../../../shared/types/report'
 import type { TransactionKind } from '../../../../shared/types/transaction'
+import { formatMoney } from '../../../transactions/utils/money'
 import styles from './CategoryReport.module.css'
 
 export interface CategoryReportProps {
   kind: TransactionKind
-  items: ReportCategory[]
+  items: CategoryTotal[]
+  selectedCategoryId: string
   onToggle: () => void
+  onSelect: (categoryId: string) => void
 }
 
-const iconByKey: Record<ReportCategory['icon'], string> = {
+const iconByKey: Record<CategoryTotal['icon'], string> = {
   products: productsIcon,
   alcohol: alcoholIcon,
   fun: entertainmentIcon,
@@ -31,13 +35,14 @@ const iconByKey: Record<ReportCategory['icon'], string> = {
   home: homeIcon,
   tech: techIcon,
   utilities: utilitiesIcon,
+  'sport-hobby': sportHobbyIcon,
   study: educationIcon,
   other: otherIcon,
   salary: salaryIcon,
   bonus: additionalIncomeIcon,
 }
 
-export function CategoryReport({ kind, items, onToggle }: CategoryReportProps) {
+export function CategoryReport({ kind, items, selectedCategoryId, onToggle, onSelect }: CategoryReportProps) {
   return (
     <section className={styles.section}>
       <div className={styles.header}>
@@ -51,13 +56,24 @@ export function CategoryReport({ kind, items, onToggle }: CategoryReportProps) {
       </div>
       <div className={styles.grid}>
         {items.map((item) => (
-          <article key={item.id} className={styles.card}>
-            <span className={styles.amount}>{item.amount}</span>
+          <button
+            type="button"
+            key={item.id}
+            className={[
+              styles.card,
+              item.amountCents === 0 ? styles.muted : '',
+              selectedCategoryId === item.id ? styles.selected : '',
+            ].filter(Boolean).join(' ')}
+            onClick={() => onSelect(item.id)}
+          >
+            <span className={styles.amount}>
+              {item.amountCents === 0 ? '—' : formatMoney(item.amountCents, { currency: null })}
+            </span>
             <span className={[styles.icon, item.kind === 'expense' ? styles.expenseIcon : styles.incomeIcon].join(' ')}>
               <img src={iconByKey[item.icon]} alt="" aria-hidden="true" />
             </span>
             <span className={styles.label}>{item.label}</span>
-          </article>
+          </button>
         ))}
       </div>
     </section>

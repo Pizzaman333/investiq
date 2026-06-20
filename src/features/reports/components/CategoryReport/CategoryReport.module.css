@@ -47,12 +47,35 @@
 }
 
 .card {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
   display: grid;
   justify-items: center;
   gap: var(--space-8);
   text-align: center;
   padding: 0.5rem;
   border-radius: 1.25rem;
+}
+
+.selected {
+  background: rgba(255, 107, 26, 0.09);
+  box-shadow: 0 0 0 2px rgba(255, 107, 26, 0.35);
+}
+
+.selected .label,
+.selected .amount {
+  color: var(--color-accent);
+}
+
+.muted {
+  opacity: 0.48;
+}
+
+.muted.selected {
+  opacity: 0.8;
 }
 
 .card:hover {

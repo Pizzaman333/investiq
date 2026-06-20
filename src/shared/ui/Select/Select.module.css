@@ -37,3 +37,8 @@
   height: 1.1rem;
   pointer-events: none;
 }
+
+.error {
+  color: var(--color-expense);
+  font-size: 0.9rem;
+}

@@ -39,7 +39,15 @@
   color: var(--color-text-strong);
   font-size: 1.9rem;
   font-weight: var(--font-weight-extrabold);
-  margin-bottom: var(--space-32);
+  margin-bottom: var(--space-20);
+}
+
+.description {
+  max-width: 390px;
+  margin: 0 auto var(--space-32);
+  color: var(--color-text);
+  text-align: center;
+  line-height: 1.55;
 }
 
 .actions {

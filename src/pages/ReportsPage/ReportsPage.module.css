@@ -18,6 +18,11 @@
   height: 1.4rem;
 }
 
+.error {
+  color: var(--color-expense);
+  text-align: center;
+}
+
 @media (max-width: 767px) {
   .backLink {
     width: 100%;

@@ -12,7 +12,8 @@
   font-weight: var(--font-weight-bold);
 }
 
-.value {
+.value,
+.input {
   min-width: 12rem;
   min-height: 3.5rem;
   padding: 0 var(--space-24);
@@ -25,6 +26,36 @@
   color: var(--color-text-strong);
   font-size: 1.05rem;
   font-weight: var(--font-weight-extrabold);
+}
+
+.value {
+  cursor: text;
+}
+
+.value:hover {
+  border-color: rgba(255, 107, 26, 0.35);
+}
+
+.input {
+  width: 12rem;
+  outline: none;
+  text-align: center;
+}
+
+.input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(255, 107, 26, 0.12);
+}
+
+.negative {
+  color: var(--color-expense);
+}
+
+.error {
+  flex-basis: 100%;
+  color: var(--color-expense);
+  text-align: center;
+  font-size: 0.85rem;
 }
 
 .button {

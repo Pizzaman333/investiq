@@ -1,22 +1,14 @@
 /// <reference types="vite/client" />
 
-declare module 'react-spinner-loader' {
-  import type { ComponentType, CSSProperties } from 'react'
+interface ImportMetaEnv {
+  readonly VITE_FIREBASE_API_KEY: string
+  readonly VITE_FIREBASE_AUTH_DOMAIN: string
+  readonly VITE_FIREBASE_PROJECT_ID: string
+  readonly VITE_FIREBASE_STORAGE_BUCKET: string
+  readonly VITE_FIREBASE_MESSAGING_SENDER_ID: string
+  readonly VITE_FIREBASE_APP_ID: string
+}
 
-  interface SpinnerLoaderProps {
-    type?: 'BODY' | 'BOX'
-    show?: boolean
-    color?: {
-      primary: string
-      secondary: string
-    }
-    message?: string
-    messageStyle?: CSSProperties
-    spinnerSize?: number
-    stack?: 'vertical' | 'horizontal'
-  }
-
-  const SpinnerLoader: ComponentType<SpinnerLoaderProps>
-
-  export default SpinnerLoader
+interface ImportMeta {
+  readonly env: ImportMetaEnv
 }

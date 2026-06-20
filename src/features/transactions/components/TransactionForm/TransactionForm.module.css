@@ -6,6 +6,7 @@
 }
 
 .dateField {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--space-12);
@@ -13,6 +14,22 @@
   font-size: 1rem;
   font-weight: var(--font-weight-extrabold);
   white-space: nowrap;
+}
+
+.dateInput {
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font-weight: var(--font-weight-extrabold);
+  cursor: pointer;
+}
+
+.dateError {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  color: var(--color-expense);
+  font-size: 0.75rem;
 }
 
 .calendar {
@@ -55,6 +72,13 @@
 .actions {
   display: flex;
   gap: var(--space-16);
+}
+
+.formError {
+  grid-column: 1 / -1;
+  color: var(--color-expense);
+  text-align: center;
+  font-size: 0.9rem;
 }
 
 @media (max-width: 1200px) {

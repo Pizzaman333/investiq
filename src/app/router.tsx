@@ -1,4 +1,5 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom'
+import { GuestRoute, ProtectedRoute } from '../features/auth/AuthRouteBoundary'
 import { DashboardPage } from '../pages/DashboardPage/DashboardPage'
 import { ReportsPage } from '../pages/ReportsPage/ReportsPage'
 import { WelcomePage } from '../pages/WelcomePage/WelcomePage'
@@ -6,16 +7,26 @@ import { APP_ROUTES } from '../shared/constants/routes'
 
 export const router = createBrowserRouter([
   {
-    path: APP_ROUTES.root,
-    element: <WelcomePage />,
+    element: <GuestRoute />,
+    children: [
+      {
+        path: APP_ROUTES.root,
+        element: <WelcomePage />,
+      },
+    ],
   },
   {
-    path: APP_ROUTES.dashboard,
-    element: <DashboardPage />,
-  },
-  {
-    path: APP_ROUTES.reports,
-    element: <ReportsPage />,
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: APP_ROUTES.dashboard,
+        element: <DashboardPage />,
+      },
+      {
+        path: APP_ROUTES.reports,
+        element: <ReportsPage />,
+      },
+    ],
   },
   {
     path: '*',

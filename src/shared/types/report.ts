@@ -1,22 +1,23 @@
 import type { TransactionKind } from './transaction'
 
 export interface PeriodInfo {
+  monthKey: string
   month: string
   year: string
 }
 
-export interface ReportCategory {
+export interface CategoryTotal {
   id: string
   label: string
-  amount: string
+  amountCents: number
   kind: TransactionKind
-  icon: 'products' | 'alcohol' | 'fun' | 'health' | 'transport' | 'home' | 'tech' | 'utilities' | 'study' | 'other' | 'salary' | 'bonus'
+  icon: 'products' | 'alcohol' | 'fun' | 'health' | 'transport' | 'home' | 'tech' | 'utilities' | 'sport-hobby' | 'study' | 'other' | 'salary' | 'bonus'
 }
 
-export interface ReportBarItem {
+export interface ChartBarItem {
   id: string
   label: string
-  amount: string
-  value: number
+  amountCents: number
+  valuePercent: number
   highlight?: boolean
 }

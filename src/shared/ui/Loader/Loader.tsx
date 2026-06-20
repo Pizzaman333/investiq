@@ -1,4 +1,3 @@
-import SpinnerLoader from 'react-spinner-loader'
 import styles from './Loader.module.css'
 
 export interface LoaderProps {
@@ -7,16 +6,14 @@ export interface LoaderProps {
 }
 
 export function Loader({ show = false, message = 'Завантаження...' }: LoaderProps) {
+  if (!show) {
+    return null
+  }
+
   return (
-    <div className={styles.preview}>
-      <SpinnerLoader
-        show={show}
-        type="BOX"
-        stack="vertical"
-        message={message}
-        color={{ primary: '#d9e0f5', secondary: '#ff7a1a' }}
-        spinnerSize={34}
-      />
+    <div className={styles.overlay} role="status" aria-live="polite">
+      <span className={styles.spinner} aria-hidden="true" />
+      <span className={styles.message}>{message}</span>
     </div>
   )
 }

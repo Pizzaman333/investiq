@@ -23,8 +23,60 @@
   align-content: start;
 }
 
+.hintRow {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: clamp(1rem, 18vw, 16rem);
+}
+
 .mobileHint {
-  display: none;
+  position: relative;
+  width: min(100%, 20rem);
+  display: grid;
+  gap: var(--space-8);
+  padding: 1.5rem 1.35rem;
+  background: var(--color-navy);
+  color: #fff;
+  border-radius: 2rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.mobileHint::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 5.5rem;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid var(--color-navy);
+}
+
+.mobileHintClose {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.mobileHintClose img {
+  width: 100%;
+  height: 100%;
+  filter: invert(1) brightness(2);
+}
+
+.mobileHintTitle {
+  padding-right: 1.5rem;
+  font-size: 0.95rem;
+  font-weight: var(--font-weight-bold);
+}
+
+.mobileHintText {
+  font-size: 0.82rem;
+  line-height: 1.45;
 }
 
 .panel {
@@ -54,36 +106,17 @@
     font-size: 0.95rem;
   }
 
+  .hintRow {
+    justify-content: center;
+    padding: 0 1rem;
+  }
+
   .mobileHint {
-    display: grid;
-    gap: var(--space-8);
-    margin: -0.25rem 1rem 0.25rem;
-    padding: 1.5rem 1.35rem;
-    background: var(--color-navy);
-    color: #fff;
-    border-radius: 2rem;
-    position: relative;
-    box-shadow: var(--shadow-soft);
+    width: 100%;
   }
 
   .mobileHint::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 5.5rem;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-bottom: 12px solid var(--color-navy);
-  }
-
-  .mobileHintTitle {
-    font-size: 0.95rem;
-    font-weight: var(--font-weight-bold);
-  }
-
-  .mobileHintText {
-    font-size: 0.82rem;
-    line-height: 1.45;
+    left: 3.75rem;
   }
 
   .panel {

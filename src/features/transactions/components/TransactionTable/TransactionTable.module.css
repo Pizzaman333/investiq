@@ -57,6 +57,21 @@
   height: 1.25rem;
 }
 
+.delete:disabled {
+  cursor: wait;
+  opacity: 0.45;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  min-height: 9rem;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  color: var(--color-muted);
+  text-align: center;
+}
+
 .placeholder span {
   display: block;
   width: 100%;

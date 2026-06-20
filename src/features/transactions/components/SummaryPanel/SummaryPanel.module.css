@@ -29,11 +29,17 @@
 }
 
 .expense {
-  color: var(--color-text);
+  color: var(--color-expense);
 }
 
 .income {
-  color: var(--color-text);
+  color: var(--color-income);
+}
+
+.empty {
+  padding: 2rem 1rem;
+  color: var(--color-muted);
+  text-align: center;
 }
 
 @media (max-width: 767px) {

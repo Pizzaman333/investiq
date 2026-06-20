@@ -4,10 +4,11 @@ import styles from './Select.module.css'
 
 export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string
+  error?: string
   options: Array<{ label: string; value: string }>
 }
 
-export function Select({ label, id, options, className = '', ...props }: SelectProps) {
+export function Select({ label, error, id, options, className = '', ...props }: SelectProps) {
   const selectId = id ?? label ?? props.name
 
   return (
@@ -23,6 +24,7 @@ export function Select({ label, id, options, className = '', ...props }: SelectP
         </select>
         <img className={styles.chevron} src={chevronDown} alt="" aria-hidden="true" />
       </span>
+      {error ? <span className={styles.error}>{error}</span> : null}
     </label>
   )
 }

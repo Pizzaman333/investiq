@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import arrowLeftIcon from '../../assets/icons/ui/arrow-left.svg'
+import ArrowLeftIcon from '../../assets/icons/ui/arrow-left.svg?react'
 import { ConfirmModal } from '../../components/ConfirmModal/ConfirmModal'
 import { useAuth } from '../../features/auth/useAuth'
 import { useFinanceMutations } from '../../features/finance/hooks/useFinanceMutations'
@@ -115,7 +115,7 @@ export function ReportsPage() {
         onLogout={() => setIsLogoutOpen(true)}
         topLeft={
           <button type="button" className={styles.backLink} onClick={() => navigate(APP_ROUTES.dashboard)}>
-            <img src={arrowLeftIcon} alt="" aria-hidden="true" />
+            <ArrowLeftIcon aria-hidden="true" />
             Повернутись на головну
           </button>
         }

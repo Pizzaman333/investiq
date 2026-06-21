@@ -9,13 +9,25 @@
   cursor: pointer;
 }
 
-.backLink:hover {
+.backLink:hover,
+.backLink:focus-visible {
   color: var(--color-accent);
 }
 
-.backLink img {
+.backLink:focus-visible {
+  outline: 3px solid rgba(255, 107, 26, 0.22);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.backLink:active {
+  color: var(--color-accent-active);
+}
+
+.backLink svg {
   width: 1.4rem;
   height: 1.4rem;
+  color: currentColor;
 }
 
 .error {
@@ -31,7 +43,7 @@
     gap: 0;
   }
 
-  .backLink img {
+  .backLink svg {
     width: 1.6rem;
     height: 1.6rem;
   }

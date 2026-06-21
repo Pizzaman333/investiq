@@ -26,12 +26,32 @@
   right: 1rem;
   border: 0;
   background: transparent;
+  color: var(--color-text);
   cursor: pointer;
+  border-radius: 999px;
+  transition:
+    color var(--transition-base),
+    background-color var(--transition-base);
 }
 
-.close img {
+.close svg {
   width: 1.75rem;
   height: 1.75rem;
+}
+
+.close:hover,
+.close:focus-visible {
+  color: var(--color-accent);
+  background: rgba(255, 107, 26, 0.08);
+}
+
+.close:focus-visible {
+  outline: 3px solid rgba(255, 107, 26, 0.22);
+  outline-offset: 2px;
+}
+
+.close:active {
+  color: var(--color-accent-active);
 }
 
 .title {

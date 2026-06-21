@@ -9,13 +9,25 @@
   cursor: pointer;
 }
 
-.reportsLink:hover {
+.reportsLink:hover,
+.reportsLink:focus-visible {
   color: var(--color-accent);
 }
 
-.reportsLink img {
+.reportsLink:focus-visible {
+  outline: 3px solid rgba(255, 107, 26, 0.22);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.reportsLink:active {
+  color: var(--color-accent-active);
+}
+
+.reportsLink svg {
   width: 1.5rem;
   height: 1.5rem;
+  color: currentColor;
 }
 
 .card {
@@ -59,13 +71,32 @@
   height: 1.5rem;
   border: 0;
   background: transparent;
+  color: #fff;
   cursor: pointer;
+  border-radius: 999px;
+  transition:
+    color var(--transition-base),
+    background-color var(--transition-base);
 }
 
-.mobileHintClose img {
+.mobileHintClose svg {
   width: 100%;
   height: 100%;
-  filter: invert(1) brightness(2);
+}
+
+.mobileHintClose:hover,
+.mobileHintClose:focus-visible {
+  color: var(--color-accent-soft);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mobileHintClose:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.72);
+  outline-offset: 3px;
+}
+
+.mobileHintClose:active {
+  color: var(--color-accent);
 }
 
 .mobileHintTitle {

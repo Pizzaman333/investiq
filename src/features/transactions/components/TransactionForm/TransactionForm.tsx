@@ -1,5 +1,6 @@
-import calendarIcon from '../../../../assets/icons/ui/calendar.svg'
+import CalendarIcon from '../../../../assets/icons/ui/calendar.svg?react'
 import { Formik } from 'formik'
+import type { ComponentType, SVGProps } from 'react'
 import type { TransactionDraft, TransactionKind } from '../../../../shared/types/transaction'
 import { Button } from '../../../../shared/ui/Button/Button'
 import { Input } from '../../../../shared/ui/Input/Input'
@@ -11,7 +12,7 @@ import styles from './TransactionForm.module.css'
 
 export interface TransactionFormProps {
   kind: TransactionKind
-  calculatorIcon?: string
+  calculatorIcon?: ComponentType<SVGProps<SVGSVGElement>>
   isSaving: boolean
   error?: string
   onSubmit: (draft: TransactionDraft) => Promise<boolean>
@@ -34,6 +35,7 @@ function getInitialValues(): TransactionFormValues {
 }
 
 export function TransactionForm({ kind, calculatorIcon, isSaving, error, onSubmit }: TransactionFormProps) {
+  const CalculatorIcon = calculatorIcon
   const categoryOptions = CATEGORIES_BY_KIND[kind].map((category) => ({
     label: category.name,
     value: category.id,
@@ -107,7 +109,7 @@ export function TransactionForm({ kind, calculatorIcon, isSaving, error, onSubmi
       {({ values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit, setValues }) => (
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.dateField}>
-            <img className={styles.calendar} src={calendarIcon} alt="" aria-hidden="true" />
+            <CalendarIcon className={styles.calendar} aria-hidden="true" />
             <input
               className={styles.dateInput}
               type="date"
@@ -155,7 +157,7 @@ export function TransactionForm({ kind, calculatorIcon, isSaving, error, onSubmi
               disabled={isSaving || isSubmitting}
               inputMode="decimal"
             />
-            {calculatorIcon ? <img className={styles.calculator} src={calculatorIcon} alt="" aria-hidden="true" /> : null}
+            {CalculatorIcon ? <CalculatorIcon className={styles.calculator} aria-hidden="true" /> : null}
           </div>
           {error ? <p className={styles.formError}>{error}</p> : null}
           <div className={styles.actions}>

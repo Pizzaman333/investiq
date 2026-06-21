@@ -14,6 +14,11 @@
   font-size: 1rem;
   font-weight: var(--font-weight-extrabold);
   white-space: nowrap;
+  transition: color var(--transition-base);
+}
+
+.dateField:focus-within {
+  color: var(--color-accent);
 }
 
 .dateInput {
@@ -35,6 +40,7 @@
 .calendar {
   width: 1.5rem;
   height: 1.5rem;
+  color: currentColor;
 }
 
 .inputs {
@@ -45,6 +51,11 @@
   border-radius: 1.4rem;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.78);
+  color: var(--color-text);
+}
+
+.inputs:focus-within .calculator {
+  color: var(--color-accent);
 }
 
 .textInput,
@@ -67,6 +78,8 @@
   justify-self: center;
   width: 1.35rem;
   height: 1.35rem;
+  color: currentColor;
+  transition: color var(--transition-base);
 }
 
 .actions {

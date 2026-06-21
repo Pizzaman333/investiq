@@ -1,4 +1,4 @@
-import trashIcon from '../../../../assets/icons/ui/trash.svg'
+import TrashIcon from '../../../../assets/icons/ui/trash.svg?react'
 import type { TransactionItem, TransactionKind } from '../../../../shared/types/transaction'
 import { formatDateForDisplay } from '../../utils/dates'
 import { formatMoney } from '../../utils/money'
@@ -45,7 +45,7 @@ export function TransactionTable({ kind, items, loading = false, error, deleting
               disabled={Boolean(deletingId)}
               onClick={() => onDelete(item)}
             >
-              <img src={trashIcon} alt="" aria-hidden="true" />
+              <TrashIcon aria-hidden="true" />
             </button>
           </div>
         ))}

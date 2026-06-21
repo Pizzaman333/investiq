@@ -42,17 +42,36 @@
   justify-self: center;
   border: 0;
   background: transparent;
+  color: var(--color-text);
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 999px;
   cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition:
+    color var(--transition-base),
+    background-color var(--transition-base),
+    transform var(--transition-base);
 }
 
-.delete:hover {
+.delete:hover:not(:disabled),
+.delete:focus-visible:not(:disabled) {
+  color: var(--color-expense);
   background: rgba(255, 45, 61, 0.08);
 }
 
-.delete img {
+.delete:focus-visible {
+  outline: 3px solid rgba(255, 45, 61, 0.2);
+  outline-offset: 2px;
+}
+
+.delete:active:not(:disabled) {
+  color: var(--color-expense);
+  transform: scale(0.94);
+}
+
+.delete svg {
   width: 1.25rem;
   height: 1.25rem;
 }

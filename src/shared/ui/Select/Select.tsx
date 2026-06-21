@@ -1,4 +1,4 @@
-import chevronDown from '../../../assets/icons/ui/chevron-down.svg'
+import ChevronDownIcon from '../../../assets/icons/ui/chevron-down.svg?react'
 import type { SelectHTMLAttributes } from 'react'
 import styles from './Select.module.css'
 
@@ -22,7 +22,7 @@ export function Select({ label, error, id, options, className = '', ...props }: 
             </option>
           ))}
         </select>
-        <img className={styles.chevron} src={chevronDown} alt="" aria-hidden="true" />
+        <ChevronDownIcon className={styles.chevron} aria-hidden="true" />
       </span>
       {error ? <span className={styles.error}>{error}</span> : null}
     </label>

@@ -11,6 +11,8 @@
 
 .wrapper {
   position: relative;
+  color: #b9c0d3;
+  transition: color var(--transition-base);
 }
 
 .select {
@@ -28,6 +30,11 @@
   border-color: rgba(202, 212, 232, 0.98);
 }
 
+.wrapper:hover,
+.wrapper:focus-within {
+  color: var(--color-accent);
+}
+
 .chevron {
   position: absolute;
   top: 50%;
@@ -36,6 +43,11 @@
   width: 1.1rem;
   height: 1.1rem;
   pointer-events: none;
+  color: currentColor;
+}
+
+.select:disabled + .chevron {
+  opacity: 0.45;
 }
 
 .error {

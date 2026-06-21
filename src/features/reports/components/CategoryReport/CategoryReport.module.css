@@ -29,13 +29,31 @@
   line-height: 1;
   cursor: pointer;
   border-radius: 999px;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  transition:
+    color var(--transition-base),
+    background-color var(--transition-base);
 }
 
-.arrow:hover {
+.arrow:hover,
+.arrow:focus-visible {
+  color: var(--color-accent-hover);
   background: rgba(255, 107, 26, 0.08);
 }
 
-.arrow img {
+.arrow:focus-visible {
+  outline: 3px solid rgba(255, 107, 26, 0.22);
+  outline-offset: 2px;
+}
+
+.arrow:active {
+  color: var(--color-accent-active);
+}
+
+.arrow svg {
   width: 1.2rem;
   height: 1.2rem;
 }
@@ -58,6 +76,15 @@
   text-align: center;
   padding: 0.5rem;
   border-radius: 1.25rem;
+  transition:
+    transform var(--transition-base),
+    background-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.card:focus-visible {
+  outline: 3px solid rgba(255, 107, 26, 0.24);
+  outline-offset: 3px;
 }
 
 .selected {
@@ -78,7 +105,7 @@
   opacity: 0.8;
 }
 
-.card:hover {
+.card:not(.muted):hover {
   transform: translateY(-2px);
 }
 
@@ -88,23 +115,48 @@
 }
 
 .icon {
+  --icon-primary: currentColor;
+  --icon-secondary: currentColor;
   width: 4.2rem;
   height: 4.2rem;
   border-radius: 1.4rem;
   display: grid;
   place-items: center;
   background: rgba(240, 244, 254, 0.92);
+  color: var(--color-navy);
+  transition:
+    color var(--transition-base),
+    background-color var(--transition-base),
+    transform var(--transition-base);
 }
 
-.icon img {
+.productsIcon {
+  --icon-primary:var(--color-navy);
+}
+
+.salaryIcon {
+  --icon-primary: #ff751d;
+}
+
+.iconGraphic {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  color: currentColor;
 }
 
-.card:hover .expenseIcon img,
-.card:hover .incomeIcon img {
-  filter: brightness(1.02) saturate(1.2);
+.card:not(.muted):hover .icon,
+.card:not(.muted):focus-visible .icon,
+.selected .icon {
+  --icon-primary: var(--color-accent);
+  --icon-secondary: var(--color-accent-soft);
+  color: var(--color-accent);
+  background: rgba(255, 107, 26, 0.12);
+}
+
+.card:not(.muted):active .icon {
+  --icon-primary: var(--color-accent-active);
+  color: var(--color-accent-active);
+  transform: scale(0.96);
 }
 
 .label {

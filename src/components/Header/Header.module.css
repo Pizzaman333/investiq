@@ -51,10 +51,22 @@
   color: var(--color-text);
   cursor: pointer;
   padding: 0;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-base);
 }
 
-.logout:hover {
+.logout:hover,
+.logout:focus-visible {
   color: var(--color-accent);
+}
+
+.logout:focus-visible {
+  outline: 3px solid rgba(255, 107, 26, 0.22);
+  outline-offset: 4px;
+}
+
+.logout:active {
+  color: var(--color-accent-active);
 }
 
 .logoutText {
@@ -69,6 +81,7 @@
 .logoutIcon {
   width: 1.5rem;
   height: 1.5rem;
+  color: currentColor;
 }
 
 @media (min-width: 768px) {

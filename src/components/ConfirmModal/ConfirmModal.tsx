@@ -1,4 +1,4 @@
-import closeIcon from '../../assets/icons/ui/close.svg'
+import CloseIcon from '../../assets/icons/ui/close.svg?react'
 import { Button } from '../../shared/ui/Button/Button'
 import styles from './ConfirmModal.module.css'
 
@@ -39,7 +39,7 @@ export function ConfirmModal({
         onClick={(event) => event.stopPropagation()}
       >
         <button type="button" className={styles.close} onClick={onCancel} aria-label="Закрити" disabled={isConfirming}>
-          <img src={closeIcon} alt="" aria-hidden="true" />
+          <CloseIcon aria-hidden="true" />
         </button>
         <p className={styles.title}>{title}</p>
         {description ? <p className={styles.description}>{description}</p> : null}

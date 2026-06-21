@@ -1,4 +1,4 @@
-import logoutIcon from '../../assets/icons/ui/logout.svg'
+import LogoutIcon from '../../assets/icons/ui/logout.svg?react'
 import { Link } from 'react-router-dom'
 import { Logo } from '../Logo/Logo'
 import styles from './Header.module.css'
@@ -23,7 +23,7 @@ export function Header({ onLogout, username }: HeaderProps) {
           <span className={styles.name}>{displayName}</span>
           <button type="button" className={styles.logout} onClick={onLogout}>
             <span className={styles.logoutText}>Вийти</span>
-            <img className={styles.logoutIcon} src={logoutIcon} alt="" aria-hidden="true" />
+            <LogoutIcon className={styles.logoutIcon} aria-hidden="true" />
           </button>
         </div>
       ) : null}

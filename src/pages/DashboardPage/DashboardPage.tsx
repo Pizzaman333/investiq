@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import calculatorIcon from '../../assets/icons/ui/calculator.svg'
-import chartBarsIcon from '../../assets/icons/ui/chart-bars.svg'
-import closeIcon from '../../assets/icons/ui/close.svg'
+import CalculatorIcon from '../../assets/icons/ui/calculator.svg?react'
+import ChartBarsIcon from '../../assets/icons/ui/chart-bars.svg?react'
+import CloseIcon from '../../assets/icons/ui/close.svg?react'
 import { ConfirmModal } from '../../components/ConfirmModal/ConfirmModal'
 import { useFinanceMutations } from '../../features/finance/hooks/useFinanceMutations'
 import { useFinanceState } from '../../features/finance/hooks/useFinanceState'
@@ -123,7 +123,7 @@ export function DashboardPage() {
         topRight={
           <button type="button" className={styles.reportsLink} onClick={() => navigate(APP_ROUTES.reports)}>
             Перейти до розрахунків
-            <img src={chartBarsIcon} alt="" aria-hidden="true" />
+            <ChartBarsIcon aria-hidden="true" />
           </button>
         }
       >
@@ -139,7 +139,7 @@ export function DashboardPage() {
                   setClosedHintForUid(profile.uid)
                 }}
               >
-                <img src={closeIcon} alt="" aria-hidden="true" />
+                <CloseIcon aria-hidden="true" />
               </button>
               <p className={styles.mobileHintTitle}>Підтвердіть базовий баланс для точніших підсумків.</p>
               <p className={styles.mobileHintText}>Доходи й витрати можна додавати вже зараз, навіть якщо баланс ще не підтверджено.</p>
@@ -152,7 +152,7 @@ export function DashboardPage() {
             <TransactionForm
               key={activeKind}
               kind={activeKind}
-              calculatorIcon={calculatorIcon}
+              calculatorIcon={CalculatorIcon}
               isSaving={saving}
               error={transactionMutationError}
               onSubmit={addTransaction}

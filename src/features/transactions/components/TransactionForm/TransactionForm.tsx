@@ -106,75 +106,116 @@ export function TransactionForm({ kind, calculatorIcon, isSaving, error, onSubmi
         setSubmitting(false)
       }}
     >
-      {({ values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit, setValues }) => (
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.dateField}>
-            <CalendarIcon className={styles.calendar} aria-hidden="true" />
-            <input
-              className={styles.dateInput}
-              type="date"
-              name="date"
-              value={values.date}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              disabled={isSaving || isSubmitting}
-              aria-label="Дата транзакції"
-            />
-            {touched.date && errors.date ? <span className={styles.dateError}>{errors.date}</span> : null}
-          </div>
-          <div className={styles.inputs}>
-            <Input
-              className={styles.textInput}
-              name="description"
-              placeholder={placeholders.description}
-              value={values.description}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.description ? errors.description : undefined}
-              disabled={isSaving || isSubmitting}
-            />
-            <Select
-              className={styles.selectInput}
-              name="categoryId"
-              value={values.categoryId}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.categoryId ? errors.categoryId : undefined}
-              disabled={isSaving || isSubmitting}
-              options={[
-                { label: placeholders.category, value: '' },
-                ...categoryOptions,
-              ]}
-            />
-            <Input
-              className={styles.amountInput}
-              name="amount"
-              placeholder="0,00"
-              value={values.amount}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.amount ? errors.amount : undefined}
-              disabled={isSaving || isSubmitting}
-              inputMode="decimal"
-            />
-            {CalculatorIcon ? <CalculatorIcon className={styles.calculator} aria-hidden="true" /> : null}
-          </div>
-          {error ? <p className={styles.formError}>{error}</p> : null}
-          <div className={styles.actions}>
-            <Button type="submit" variant="primary" disabled={isSaving || isSubmitting}>
-              {isSaving || isSubmitting ? 'ЗБЕРЕЖЕННЯ...' : 'ВВЕСТИ'}
-            </Button>
-            <Button
-              type="button"
-              variant="secondary"
-              disabled={isSaving || isSubmitting}
-              onClick={() => void setValues({ date: values.date, description: '', categoryId: '', amount: '' })}
-            >
-              ОЧИСТИТИ
-            </Button>
-          </div>
-        </form>
-      )}
+      {({ values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit, setValues }) => {
+        const dateError = touched.date ? errors.date : undefined
+        const descriptionError = touched.description ? errors.description : undefined
+        const categoryError = touched.categoryId ? errors.categoryId : undefined
+        const amountError = touched.amount ? errors.amount : undefined
+        const errorIdPrefix = `transaction-${kind}`
+
+        return (
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.dateField}>
+              <CalendarIcon className={styles.calendar} aria-hidden="true" />
+              <input
+                className={styles.dateInput}
+                type="date"
+                name="date"
+                value={values.date}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                disabled={isSaving || isSubmitting}
+                aria-label="Дата транзакції"
+                aria-invalid={Boolean(dateError)}
+                aria-describedby={dateError ? `${errorIdPrefix}-date-error` : undefined}
+              />
+              {dateError ? (
+                <span id={`${errorIdPrefix}-date-error`} className={styles.dateError}>
+                  {dateError}
+                </span>
+              ) : null}
+            </div>
+            <div className={styles.inputs}>
+              <div className={styles.inputField}>
+                <Input
+                  id={`${errorIdPrefix}-description`}
+                  className={styles.textInput}
+                  name="description"
+                  placeholder={placeholders.description}
+                  value={values.description}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  disabled={isSaving || isSubmitting}
+                  aria-invalid={Boolean(descriptionError)}
+                  aria-describedby={descriptionError ? `${errorIdPrefix}-description-error` : undefined}
+                />
+                {descriptionError ? (
+                  <span id={`${errorIdPrefix}-description-error`} className={styles.fieldError}>
+                    {descriptionError}
+                  </span>
+                ) : null}
+              </div>
+              <div className={styles.inputField}>
+                <Select
+                  id={`${errorIdPrefix}-category`}
+                  className={styles.selectInput}
+                  name="categoryId"
+                  value={values.categoryId}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  disabled={isSaving || isSubmitting}
+                  aria-invalid={Boolean(categoryError)}
+                  aria-describedby={categoryError ? `${errorIdPrefix}-category-error` : undefined}
+                  options={[
+                    { label: placeholders.category, value: '' },
+                    ...categoryOptions,
+                  ]}
+                />
+                {categoryError ? (
+                  <span id={`${errorIdPrefix}-category-error`} className={styles.fieldError}>
+                    {categoryError}
+                  </span>
+                ) : null}
+              </div>
+              <div className={[styles.inputField, styles.amountField].join(' ')}>
+                <Input
+                  id={`${errorIdPrefix}-amount`}
+                  className={styles.amountInput}
+                  name="amount"
+                  placeholder="0,00"
+                  value={values.amount}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  disabled={isSaving || isSubmitting}
+                  inputMode="decimal"
+                  aria-invalid={Boolean(amountError)}
+                  aria-describedby={amountError ? `${errorIdPrefix}-amount-error` : undefined}
+                />
+                {amountError ? (
+                  <span id={`${errorIdPrefix}-amount-error`} className={styles.fieldError}>
+                    {amountError}
+                  </span>
+                ) : null}
+              </div>
+              {CalculatorIcon ? <CalculatorIcon className={styles.calculator} aria-hidden="true" /> : null}
+            </div>
+            {error ? <p className={styles.formError}>{error}</p> : null}
+            <div className={styles.actions}>
+              <Button type="submit" variant="primary" disabled={isSaving || isSubmitting}>
+                {isSaving || isSubmitting ? 'ЗБЕРЕЖЕННЯ...' : 'ВВЕСТИ'}
+              </Button>
+              <Button
+                type="button"
+                variant="secondary"
+                disabled={isSaving || isSubmitting}
+                onClick={() => void setValues({ date: values.date, description: '', categoryId: '', amount: '' })}
+              >
+                ОЧИСТИТИ
+              </Button>
+            </div>
+          </form>
+        )
+      }}
     </Formik>
   )
 }

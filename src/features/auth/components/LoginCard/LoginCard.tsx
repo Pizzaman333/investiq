@@ -17,7 +17,7 @@ const loginInitialValues = {
 
 export function LoginCard() {
   const navigate = useNavigate()
-  const { signIn, signInWithGoogle } = useAuth()
+  const { signIn, signInWithGoogle, startDemoSession } = useAuth()
   const [errorMessage, setErrorMessage] = useState('')
   const [mode, setMode] = useState<'login' | 'register'>('login')
 
@@ -103,6 +103,17 @@ export function LoginCard() {
                 РЕЄСТРАЦІЯ
               </Button>
             </div>
+            <button
+              type="button"
+              className={styles.demoButton}
+              onClick={() => {
+                setErrorMessage('')
+                startDemoSession()
+                navigate(APP_ROUTES.dashboard)
+              }}
+            >
+              Спробувати демо без реєстрації
+            </button>
           </form>
         )}
       </Formik>

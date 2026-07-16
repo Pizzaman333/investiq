@@ -7,6 +7,8 @@ export interface UserProfile {
   updatedAt: Date | null
 }
 
+export type AuthMode = 'firebase' | 'demo' | 'guest'
+
 export interface AuthCredentials {
   email: string
   password: string

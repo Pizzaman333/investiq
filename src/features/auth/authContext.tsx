@@ -16,7 +16,10 @@ import {
 import { bootstrapUserData, subscribeToUserProfile } from '../finance/services/financeService'
 import { auth, googleProvider } from '../../shared/lib/firebase'
 import type { UserProfile } from '../../shared/types/auth'
+import { DEMO_PROFILE } from '../demo/demoData'
 import { AuthContext, type AuthContextValue } from './useAuth'
+
+const DEMO_SESSION_KEY = 'investiq.demoSession'
 
 function fallbackProfile(user: User): UserProfile {
   return {
@@ -32,6 +35,9 @@ function fallbackProfile(user: User): UserProfile {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<UserProfile | null>(null)
+  const [isDemoSession, setIsDemoSession] = useState(
+    () => sessionStorage.getItem(DEMO_SESSION_KEY) === 'true',
+  )
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -42,11 +48,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (!firebaseUser) {
         setUser(null)
-        setProfile(null)
+        setProfile(isDemoSession ? DEMO_PROFILE : null)
         setLoading(false)
         return
       }
 
+      sessionStorage.removeItem(DEMO_SESSION_KEY)
+      setIsDemoSession(false)
       setUser(firebaseUser)
       setProfile(fallbackProfile(firebaseUser))
       setLoading(false)
@@ -75,7 +83,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       unsubscribeProfile()
       unsubscribeAuth()
     }
-  }, [])
+  }, [isDemoSession])
 
   const value = useMemo<AuthContextValue>(
     () => ({
@@ -93,11 +101,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       async signInWithGoogle() {
         await signInWithRedirect(auth, googleProvider)
       },
+      startDemoSession() {
+        sessionStorage.setItem(DEMO_SESSION_KEY, 'true')
+        setIsDemoSession(true)
+        setUser(null)
+        setProfile(DEMO_PROFILE)
+      },
       async signOutUser() {
+        sessionStorage.removeItem(DEMO_SESSION_KEY)
+        setIsDemoSession(false)
+        setProfile(null)
         await signOut(auth)
       },
+      mode: user ? 'firebase' : isDemoSession ? 'demo' : 'guest',
+      isAuthenticated: Boolean(user || isDemoSession),
     }),
-    [loading, profile, user],
+    [isDemoSession, loading, profile, user],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

@@ -61,6 +61,27 @@
   margin-top: var(--space-12);
 }
 
+.demoButton {
+  border: 0;
+  background: transparent;
+  color: var(--color-accent);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.demoButton:hover,
+.demoButton:focus-visible {
+  color: var(--color-accent-active);
+}
+
+.demoButton:focus-visible {
+  outline: 3px solid rgba(255, 107, 26, 0.22);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
 @media (max-width: 1199px) {
   .card {
     margin-left: 0;

@@ -8,14 +8,14 @@ function RouteLoadingState() {
 }
 
 export function ProtectedRoute() {
-  const { loading, user } = useAuth()
+  const { isAuthenticated, loading } = useAuth()
   const location = useLocation()
 
   if (loading) {
     return <RouteLoadingState />
   }
 
-  if (!user) {
+  if (!isAuthenticated) {
     return <Navigate to={APP_ROUTES.root} replace state={{ from: location }} />
   }
 
@@ -23,13 +23,13 @@ export function ProtectedRoute() {
 }
 
 export function GuestRoute() {
-  const { loading, user } = useAuth()
+  const { isAuthenticated, loading } = useAuth()
 
   if (loading) {
     return <RouteLoadingState />
   }
 
-  if (user) {
+  if (isAuthenticated) {
     return <Navigate to={APP_ROUTES.dashboard} replace />
   }
 

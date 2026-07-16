@@ -1,0 +1,7 @@
+<svg width="960" height="540" viewBox="0 0 960 540" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="540" rx="28" fill="#F3F6FC"/>
+  <rect x="160" y="118" width="640" height="70" rx="35" fill="#FFF0E7" stroke="#FF6D1E" stroke-opacity=".35"/>
+  <text x="250" y="162" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#FF6D1E">Demo mode banner</text>
+  <rect x="160" y="235" width="640" height="190" rx="30" fill="#FFFFFF"/>
+  <text x="230" y="330" font-family="Arial, sans-serif" font-size="20" fill="#5D6472">Replace with visible demo state screenshot.</text>
+</svg>

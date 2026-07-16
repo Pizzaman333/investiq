@@ -12,6 +12,9 @@
 Google authentication uses Firebase redirect sign-in. The value of
 `VITE_FIREBASE_AUTH_DOMAIN` must match the web application configuration.
 
+For portfolio demos, InvestIQ also includes a local demo mode that does not use
+Firebase and does not write to Firestore.
+
 ## 2. Firestore Database
 
 1. Go to **Firestore Database** and create a database.
@@ -45,6 +48,14 @@ development server after changing environment variables.
 Do not commit `.env`. Firebase web API keys are client identifiers rather than
 server secrets, but access must still be protected by Auth, Firestore rules, and
 appropriate API-key restrictions in Google Cloud Console.
+
+Recommended hardening:
+
+- Restrict the Firebase web API key to the expected HTTP referrers in Google
+  Cloud Console.
+- Keep Firebase Auth authorized domains limited to local development and the
+  deployed production domain.
+- Consider Firebase App Check before using the app with real public traffic.
 
 ## 5. Indexes
 

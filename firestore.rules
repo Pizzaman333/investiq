@@ -2,14 +2,19 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
+    // Every authenticated user owns only their own profile subtree.
+    // Firebase web config is public client config; these rules are the real
+    // data boundary and must be deployed from Firebase Console/CLI.
     match /users/{userId} {
       allow read, create, update: if request.auth != null && request.auth.uid == userId;
       allow delete: if false;
 
+      // Minimal per-user finance baseline state.
       match /finance/{documentId} {
         allow read, write: if request.auth != null && request.auth.uid == userId;
       }
 
+      // Per-user income/expense transaction history.
       match /transactions/{transactionId} {
         allow read, write: if request.auth != null && request.auth.uid == userId;
       }

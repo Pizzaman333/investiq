@@ -1,0 +1,8 @@
+<svg width="960" height="540" viewBox="0 0 960 540" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="540" rx="28" fill="#F3F6FC"/>
+  <rect x="78" y="86" width="804" height="360" rx="34" fill="#FFFFFF"/>
+  <rect x="118" y="150" width="724" height="56" rx="18" fill="#FFF0E7"/>
+  <rect x="118" y="250" width="724" height="140" rx="22" fill="#F3F6FC"/>
+  <text x="118" y="122" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#050608">Dashboard with filters</text>
+  <text x="118" y="426" font-family="Arial, sans-serif" font-size="18" fill="#5D6472">Replace with transactions screenshot.</text>
+</svg>

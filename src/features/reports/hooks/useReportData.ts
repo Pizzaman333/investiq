@@ -1,6 +1,11 @@
 import { useMemo } from 'react'
 import type { TransactionItem, TransactionKind } from '../../../shared/types/transaction'
-import { getCategoryTotals, getDescriptionBreakdown } from '../../transactions/utils/aggregations'
+import {
+  getCategoryTotals,
+  getDescriptionBreakdown,
+  getMonthlyComparisonItems,
+  getTopCategories,
+} from '../../transactions/utils/aggregations'
 
 export function useReportData(
   transactions: TransactionItem[],
@@ -17,6 +22,8 @@ export function useReportData(
       .filter((transaction) => transaction.kind === 'income')
       .reduce((total, transaction) => total + transaction.amountCents, 0)
     const categories = getCategoryTotals(transactions, kind, monthKey)
+    const comparisonItems = getMonthlyComparisonItems(transactions, monthKey)
+    const topCategories = getTopCategories(transactions, kind, monthKey)
     const chartItems = getDescriptionBreakdown(
       transactions,
       kind,
@@ -24,6 +31,6 @@ export function useReportData(
       selectedCategoryId,
     )
 
-    return { expenseTotalCents, incomeTotalCents, categories, chartItems }
+    return { expenseTotalCents, incomeTotalCents, categories, comparisonItems, topCategories, chartItems }
   }, [kind, monthKey, selectedCategoryId, transactions])
 }

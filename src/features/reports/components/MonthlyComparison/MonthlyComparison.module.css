@@ -1,0 +1,71 @@
+.card {
+  display: grid;
+  gap: var(--space-20);
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow-soft);
+  padding: 1.6rem;
+}
+
+.eyebrow {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.title {
+  color: var(--color-text-strong);
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+}
+
+.rows {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.row {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.rowHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-16);
+  color: var(--color-text);
+}
+
+.expense {
+  color: var(--color-expense);
+}
+
+.income {
+  color: var(--color-income);
+}
+
+.track {
+  height: 0.95rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(237, 242, 252, 0.95);
+}
+
+.bar {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.expenseBar {
+  background: var(--color-expense);
+}
+
+.incomeBar {
+  background: var(--color-income);
+}
+
+.empty {
+  color: var(--color-muted);
+}

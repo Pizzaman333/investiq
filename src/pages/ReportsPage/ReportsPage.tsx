@@ -2,14 +2,18 @@ import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ArrowLeftIcon from '../../assets/icons/ui/arrow-left.svg?react'
 import { ConfirmModal } from '../../components/ConfirmModal/ConfirmModal'
+import { DemoBanner } from '../../components/DemoBanner/DemoBanner'
 import { useAuth } from '../../features/auth/useAuth'
+import { useDemoData } from '../../features/demo/useDemoData'
 import { useFinanceMutations } from '../../features/finance/hooks/useFinanceMutations'
 import { useFinanceState } from '../../features/finance/hooks/useFinanceState'
 import { useCurrentBalance } from '../../features/finance/hooks/useCurrentBalance'
 import { BarChartPlaceholder } from '../../features/reports/components/BarChartPlaceholder/BarChartPlaceholder'
 import { CategoryReport } from '../../features/reports/components/CategoryReport/CategoryReport'
+import { MonthlyComparison } from '../../features/reports/components/MonthlyComparison/MonthlyComparison'
 import { MonthlyTotals } from '../../features/reports/components/MonthlyTotals/MonthlyTotals'
 import { PeriodSelector } from '../../features/reports/components/PeriodSelector/PeriodSelector'
+import { TopCategories } from '../../features/reports/components/TopCategories/TopCategories'
 import { useReportData } from '../../features/reports/hooks/useReportData'
 import { useTransactions } from '../../features/transactions/hooks/useTransactions'
 import { getCategoryTotals } from '../../features/transactions/utils/aggregations'
@@ -23,11 +27,15 @@ import styles from './ReportsPage.module.css'
 
 export function ReportsPage() {
   const navigate = useNavigate()
-  const { profile, user, signOutUser } = useAuth()
-  const uid = user?.uid
-  const { state: financeState, loading: financeLoading, error: financeError } = useFinanceState(uid)
-  const { transactions, loading: transactionsLoading, error: transactionsError } = useTransactions(uid)
-  const { setBaseBalance, updating: balanceUpdating, error: balanceMutationError } = useFinanceMutations(uid)
+  const { mode, profile, user, signOutUser } = useAuth()
+  const demo = useDemoData()
+  const isDemo = mode === 'demo'
+  const firebaseUid = isDemo ? undefined : user?.uid
+  const { state: firebaseFinanceState, loading: financeLoading, error: financeError } = useFinanceState(firebaseUid)
+  const { transactions: firebaseTransactions, loading: transactionsLoading, error: transactionsError } = useTransactions(firebaseUid)
+  const { setBaseBalance: setFirebaseBaseBalance, updating: balanceUpdating, error: balanceMutationError } = useFinanceMutations(firebaseUid)
+  const financeState = isDemo ? demo.financeState : firebaseFinanceState
+  const transactions = isDemo ? demo.transactions : firebaseTransactions
   const currentBalanceCents = useCurrentBalance(financeState.baseBalanceCents, transactions)
   const [activeKind, setActiveKind] = useState<TransactionKind>('expense')
   const [isLogoutOpen, setIsLogoutOpen] = useState(false)
@@ -61,11 +69,11 @@ export function ReportsPage() {
   const nextMonthKey = shiftMonthKey(selectedMonthKey, 1)
   const nextDisabled = nextMonthKey > currentMonthKey && !availableMonthKeys.includes(nextMonthKey)
 
-  if (!profile || !uid) {
+  if (!profile || (!isDemo && !firebaseUid)) {
     return null
   }
 
-  if (financeLoading || transactionsLoading) {
+  if (!isDemo && (financeLoading || transactionsLoading)) {
     return <Loader show message="Завантаження звіту..." />
   }
 
@@ -89,7 +97,9 @@ export function ReportsPage() {
     if (pendingBaseBalanceCents === null) {
       return
     }
-    const saved = await setBaseBalance(pendingBaseBalanceCents)
+    const saved = isDemo
+      ? await demo.setBaseBalance(pendingBaseBalanceCents)
+      : await setFirebaseBaseBalance(pendingBaseBalanceCents)
     if (saved) {
       setPendingBaseBalanceCents(null)
       setBalanceDraft('')
@@ -111,7 +121,7 @@ export function ReportsPage() {
           onDraftChange: setBalanceDraft,
           onConfirm: requestBalanceConfirmation,
         }}
-        username={profile.displayName ?? user.displayName ?? 'User Name'}
+        username={profile.displayName ?? user?.displayName ?? 'User Name'}
         onLogout={() => setIsLogoutOpen(true)}
         topLeft={
           <button type="button" className={styles.backLink} onClick={() => navigate(APP_ROUTES.dashboard)}>
@@ -132,11 +142,16 @@ export function ReportsPage() {
           />
         }
       >
+        {isDemo ? <DemoBanner /> : null}
         {financeError || transactionsError ? <p className={styles.error}>{financeError || transactionsError}</p> : null}
         <MonthlyTotals
           expenseAmount={formatMoney(-reportData.expenseTotalCents, { currency: 'грн.', spacedSign: true })}
           incomeAmount={formatMoney(reportData.incomeTotalCents, { currency: 'грн.', showPlus: true, spacedSign: true })}
         />
+        <div className={styles.insights}>
+          <MonthlyComparison items={reportData.comparisonItems} />
+          <TopCategories kind={activeKind} items={reportData.topCategories} />
+        </div>
         <CategoryReport
           kind={activeKind}
           items={categories}

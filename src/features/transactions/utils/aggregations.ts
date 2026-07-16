@@ -1,4 +1,4 @@
-import type { CategoryTotal, ChartBarItem } from '../../../shared/types/report'
+import type { CategoryTotal, ChartBarItem, MonthlyComparisonItem, TopCategoryItem } from '../../../shared/types/report'
 import type { MonthlySummary, TransactionItem, TransactionKind } from '../../../shared/types/transaction'
 import { CATEGORIES_BY_KIND } from './categories'
 import { getPeriodInfo } from './dates'
@@ -88,5 +88,56 @@ export function getDescriptionBreakdown(
     amountCents,
     valuePercent: maximum > 0 ? (amountCents / maximum) * 100 : 0,
     highlight: index % 3 === 0,
+  }))
+}
+
+export function getMonthlyKindTotals(transactions: TransactionItem[], monthKey: string) {
+  return transactions
+    .filter((transaction) => transaction.monthKey === monthKey)
+    .reduce<Record<TransactionKind, number>>(
+      (totals, transaction) => ({
+        ...totals,
+        [transaction.kind]: totals[transaction.kind] + transaction.amountCents,
+      }),
+      { expense: 0, income: 0 },
+    )
+}
+
+export function getMonthlyComparisonItems(transactions: TransactionItem[], monthKey: string): MonthlyComparisonItem[] {
+  const totals = getMonthlyKindTotals(transactions, monthKey)
+  const maximum = Math.max(totals.expense, totals.income)
+
+  return [
+    {
+      id: 'expense',
+      label: 'Витрати',
+      amountCents: totals.expense,
+      valuePercent: maximum > 0 ? (totals.expense / maximum) * 100 : 0,
+    },
+    {
+      id: 'income',
+      label: 'Доходи',
+      amountCents: totals.income,
+      valuePercent: maximum > 0 ? (totals.income / maximum) * 100 : 0,
+    },
+  ]
+}
+
+export function getTopCategories(
+  transactions: TransactionItem[],
+  kind: TransactionKind,
+  monthKey: string,
+  limit = 5,
+): TopCategoryItem[] {
+  const categories = getCategoryTotals(transactions, kind, monthKey)
+    .filter((category) => category.amountCents > 0)
+    .sort((categoryA, categoryB) => categoryB.amountCents - categoryA.amountCents)
+    .slice(0, limit)
+  const maximum = categories[0]?.amountCents ?? 0
+
+  return categories.map((category, index) => ({
+    ...category,
+    rank: index + 1,
+    valuePercent: maximum > 0 ? (category.amountCents / maximum) * 100 : 0,
   }))
 }

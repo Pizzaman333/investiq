@@ -5,6 +5,7 @@ import {
   onSnapshot,
   serverTimestamp,
   setDoc,
+  updateDoc,
   type Unsubscribe,
 } from 'firebase/firestore'
 import { db } from '../../../shared/lib/firebase'
@@ -86,4 +87,13 @@ export async function createTransaction(uid: string, draft: TransactionDraft) {
 
 export async function deleteTransaction(uid: string, transactionId: string) {
   await deleteDoc(doc(db, 'users', uid, 'transactions', transactionId))
+}
+
+export async function updateTransaction(uid: string, transactionId: string, draft: TransactionDraft) {
+  await updateDoc(doc(db, 'users', uid, 'transactions', transactionId), {
+    ...draft,
+    monthKey: getMonthKey(draft.date),
+    currency: 'UAH',
+    updatedAt: serverTimestamp(),
+  })
 }

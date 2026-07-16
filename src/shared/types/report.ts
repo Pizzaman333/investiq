@@ -21,3 +21,15 @@ export interface ChartBarItem {
   valuePercent: number
   highlight?: boolean
 }
+
+export interface MonthlyComparisonItem {
+  id: TransactionKind
+  label: string
+  amountCents: number
+  valuePercent: number
+}
+
+export interface TopCategoryItem extends CategoryTotal {
+  rank: number
+  valuePercent: number
+}

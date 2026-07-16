@@ -24,7 +24,7 @@ Firebase and does not write to Firestore.
    state, and transaction collection after authentication.
 
 The application stores data at:
-
+ 
 ```text
 users/{uid}
 users/{uid}/finance/state

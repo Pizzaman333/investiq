@@ -13,15 +13,12 @@ The demo mode uses local seeded data only. It does not expose personal data, doe
 
 ## Screenshots
 
-Placeholder screenshots live in [`docs/screenshots`](docs/screenshots). Replace them with real captures before sharing the project widely.
-
 | Screen | Preview |
 | --- | --- |
-| Login / welcome page | ![Login placeholder](docs/screenshots/login.svg) |
-| Dashboard with filters | ![Dashboard placeholder](docs/screenshots/dashboard.svg) |
-| Edit transaction modal | ![Edit modal placeholder](docs/screenshots/edit-transaction.svg) |
-| Reports page | ![Reports placeholder](docs/screenshots/reports.svg) |
-| Demo mode banner | ![Demo mode placeholder](docs/screenshots/demo-mode.svg) |
+| Login / welcome page | ![Login](docs/screenshots/login.png) |
+| Dashboard with filters | ![Dashboard](docs/screenshots/dashboard.png) |
+| Edit transaction modal | ![Edit modal](docs/screenshots/edit-transaction.png) |
+| Reports page | ![Reports](docs/screenshots/reports.png) |
 
 ## Features
 
@@ -70,20 +67,6 @@ src/
 
 Firestore remains the source of truth for real authenticated accounts. Demo mode is intentionally separate and local so recruiters can inspect the UI without creating an account.
 
-## Firebase And Security
-
-This is a Vite frontend app, so `VITE_*` environment variables are included in the client bundle. Firebase web config values identify the Firebase project; they are not treated as server secrets.
-
-Security is handled through:
-
-- Firebase Authentication providers.
-- Firestore Security Rules that restrict each user to `users/{uid}`.
-- Authorized domains in Firebase Authentication settings.
-- Optional Google Cloud API key restrictions.
-- Future hardening with Firebase App Check.
-
-Important: committing `firestore.rules` does not deploy it. Deploy or paste the rules in the Firebase Console before using the app with real users.
-
 ## Firestore Data Model
 
 ```text
@@ -117,80 +100,6 @@ users/{uid}/transactions/{transactionId}
 ```
 
 Money is stored and calculated as integer cents/kopiykas, never floating point values.
-
-## Local Setup
-
-1. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-2. Copy the environment template:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-3. Add Firebase web app values to `.env`:
-
-   ```text
-   VITE_FIREBASE_API_KEY=
-   VITE_FIREBASE_AUTH_DOMAIN=
-   VITE_FIREBASE_PROJECT_ID=
-   VITE_FIREBASE_STORAGE_BUCKET=
-   VITE_FIREBASE_MESSAGING_SENDER_ID=
-   VITE_FIREBASE_APP_ID=
-   ```
-
-4. Start the app:
-
-   ```bash
-   npm run dev
-   ```
-
-`.env` and `.env.*` are ignored by Git. Keep `.env.example` as placeholders only.
-
-## Available Scripts
-
-```bash
-npm run dev      # start Vite dev server
-npm run build    # TypeScript build + production bundle
-npm run lint     # run ESLint
-npm run test     # run Vitest
-npm run preview  # preview production build locally
-npm run deploy   # build and publish dist/ to GitHub Pages
-```
-
-The `postbuild` script copies `dist/index.html` to `dist/404.html` so GitHub Pages can support SPA refreshes under `/investiq/`.
-
-## Deployment Notes
-
-- `homepage` is configured for GitHub Pages: `https://pizzaman333.github.io/investiq/`.
-- Vite uses `BASE_URL` in the router basename, so production routes work under `/investiq/`.
-- Firebase Auth authorized domains should include localhost, `127.0.0.1`, and the deployed GitHub Pages domain.
-- Firestore rules must be published separately through Firebase Console or Firebase CLI.
-
-## Testing Notes
-
-Core finance logic is covered with Vitest:
-
-- Money parsing and formatting.
-- Date and month helpers.
-- Current balance calculations.
-- Monthly totals and category/report aggregation.
-- Transaction filtering.
-
-Firebase itself is not unit-tested directly in this project; the app keeps Firestore calls behind services and tests pure utilities where possible.
-
-## Future Improvements
-
-- Add Firebase App Check for stronger abuse protection.
-- Add richer report charts and export options.
-- Add account settings and profile management.
-- Add transaction import/export.
-- Add recurring transactions and budgets.
-- Replace screenshot placeholders with final production screenshots.
 
 ## What I Learned
 

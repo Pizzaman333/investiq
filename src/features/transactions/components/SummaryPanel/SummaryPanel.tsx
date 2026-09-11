@@ -10,9 +10,9 @@ export interface SummaryPanelProps {
 export function SummaryPanel({ kind, items }: SummaryPanelProps) {
   return (
     <aside className={styles.panel}>
-      <h3 className={styles.title}>ЗВЕДЕННЯ</h3>
+      <h3 className={styles.title}>SUMMARY</h3>
       <div className={styles.list}>
-        {items.length === 0 ? <p className={styles.empty}>Немає даних</p> : null}
+        {items.length === 0 ? <p className={styles.empty}>No data</p> : null}
         {items.map((item) => (
           <div key={item.monthKey} className={styles.item}>
             <span>{item.label}</span>

@@ -1,22 +1,22 @@
 import type { TransactionCategory, TransactionKind } from '../../../shared/types/transaction'
 
 export const EXPENSE_CATEGORIES: TransactionCategory[] = [
-  { id: 'transport', name: 'Транспорт', kind: 'expense', icon: 'transport' },
-  { id: 'products', name: 'Продукти', kind: 'expense', icon: 'products' },
-  { id: 'health', name: "Здоров'я", kind: 'expense', icon: 'health' },
-  { id: 'alcohol', name: 'Алкоголь', kind: 'expense', icon: 'alcohol' },
-  { id: 'entertainment', name: 'Розваги', kind: 'expense', icon: 'fun' },
-  { id: 'home', name: 'Все для дому', kind: 'expense', icon: 'home' },
-  { id: 'tech', name: 'Техніка', kind: 'expense', icon: 'tech' },
-  { id: 'utilities', name: 'Комуналка, зв’язок', kind: 'expense', icon: 'utilities' },
-  { id: 'sport-hobby', name: 'Спорт, хобі', kind: 'expense', icon: 'sport-hobby' },
-  { id: 'education', name: 'Навчання', kind: 'expense', icon: 'study' },
-  { id: 'other', name: 'Інше', kind: 'expense', icon: 'other' },
+  { id: 'transport', name: 'Transport', kind: 'expense', icon: 'transport' },
+  { id: 'products', name: 'Groceries', kind: 'expense', icon: 'products' },
+  { id: 'health', name: 'Health', kind: 'expense', icon: 'health' },
+  { id: 'alcohol', name: 'Alcohol', kind: 'expense', icon: 'alcohol' },
+  { id: 'entertainment', name: 'Entertainment', kind: 'expense', icon: 'fun' },
+  { id: 'home', name: 'Home', kind: 'expense', icon: 'home' },
+  { id: 'tech', name: 'Tech', kind: 'expense', icon: 'tech' },
+  { id: 'utilities', name: 'Utilities, phone', kind: 'expense', icon: 'utilities' },
+  { id: 'sport-hobby', name: 'Sports, hobbies', kind: 'expense', icon: 'sport-hobby' },
+  { id: 'education', name: 'Education', kind: 'expense', icon: 'study' },
+  { id: 'other', name: 'Other', kind: 'expense', icon: 'other' },
 ]
 
 export const INCOME_CATEGORIES: TransactionCategory[] = [
-  { id: 'salary', name: 'ЗП', kind: 'income', icon: 'salary' },
-  { id: 'additional-income', name: 'Дод. прибуток', kind: 'income', icon: 'bonus' },
+  { id: 'salary', name: 'Salary', kind: 'income', icon: 'salary' },
+  { id: 'additional-income', name: 'Additional income', kind: 'income', icon: 'bonus' },
 ]
 
 export const CATEGORIES_BY_KIND: Record<TransactionKind, TransactionCategory[]> = {

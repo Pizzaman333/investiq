@@ -5,7 +5,7 @@ export interface LoaderProps {
   message?: string
 }
 
-export function Loader({ show = false, message = 'Завантаження...' }: LoaderProps) {
+export function Loader({ show = false, message = 'Loading...' }: LoaderProps) {
   if (!show) {
     return null
   }

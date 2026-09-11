@@ -27,7 +27,7 @@ export function LoginCard() {
 
   return (
     <div className={styles.card}>
-      <p className={styles.copy}>Ви можете авторизуватися за допомогою акаунта Google</p>
+      <p className={styles.copy}>You can sign in with your Google account</p>
       <button
         type="button"
         className={styles.googleButton}
@@ -42,7 +42,7 @@ export function LoginCard() {
         Google
       </button>
 
-      <p className={styles.copy}>Або увійти за допомогою ел. пошти та паролю після реєстрації</p>
+      <p className={styles.copy}>Or sign in with email and password after registration</p>
 
       <Formik
         initialValues={loginInitialValues}
@@ -50,11 +50,11 @@ export function LoginCard() {
           const errors: Partial<Record<keyof typeof values, string>> = {}
 
           if (!values.email.trim()) {
-            errors.email = 'Введіть email.'
+            errors.email = 'Enter your email.'
           }
 
           if (!values.password) {
-            errors.password = 'Введіть пароль.'
+            errors.password = 'Enter your password.'
           }
 
           return errors
@@ -75,7 +75,7 @@ export function LoginCard() {
         {({ values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit }) => (
           <form className={styles.form} onSubmit={handleSubmit}>
             <Input
-              label="Електронна пошта:"
+              label="Email:"
               name="email"
               type="email"
               placeholder="your@email.com"
@@ -85,10 +85,10 @@ export function LoginCard() {
               error={touched.email ? errors.email : undefined}
             />
             <Input
-              label="Пароль:"
+              label="Password:"
               name="password"
               type="password"
-              placeholder="Пароль"
+              placeholder="Password"
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -97,10 +97,10 @@ export function LoginCard() {
             {errorMessage ? <p className={styles.error}>{errorMessage}</p> : null}
             <div className={styles.actions}>
               <Button type="submit" variant="primary" fullWidth disabled={isSubmitting}>
-                УВІЙТИ
+                SIGN IN
               </Button>
               <Button type="button" variant="secondary" fullWidth onClick={() => setMode('register')}>
-                РЕЄСТРАЦІЯ
+                REGISTER
               </Button>
             </div>
             <button
@@ -112,7 +112,7 @@ export function LoginCard() {
                 navigate(APP_ROUTES.dashboard)
               }}
             >
-              Спробувати демо без реєстрації
+              Try demo without registration
             </button>
           </form>
         )}

@@ -1,5 +1,5 @@
 export interface FormatMoneyOptions {
-  currency?: 'UAH' | 'грн.' | null
+  currency?: 'UAH' | null
   showPlus?: boolean
   spacedSign?: boolean
 }
@@ -22,7 +22,7 @@ export function parseMoneyToCents(input: string): number {
 
 export function formatMoney(
   cents: number,
-  { currency = 'грн.', showPlus = false, spacedSign = false }: FormatMoneyOptions = {},
+  { currency = 'UAH', showPlus = false, spacedSign = false }: FormatMoneyOptions = {},
 ): string {
   const safeCents = Number.isFinite(cents) ? Math.round(cents) : 0
   const absoluteCents = Math.abs(safeCents)

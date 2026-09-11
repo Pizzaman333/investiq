@@ -74,7 +74,7 @@ export function ReportsPage() {
   }
 
   if (!isDemo && (financeLoading || transactionsLoading)) {
-    return <Loader show message="Завантаження звіту..." />
+    return <Loader show message="Loading report..." />
   }
 
   function startBalanceEditing() {
@@ -86,7 +86,7 @@ export function ReportsPage() {
   function requestBalanceConfirmation() {
     const parsedCents = parseMoneyToCents(balanceDraft)
     if (!Number.isSafeInteger(parsedCents)) {
-      setBalanceInputError('Введіть коректну суму.')
+      setBalanceInputError('Enter a valid amount.')
       return
     }
     setBalanceInputError('')
@@ -126,7 +126,7 @@ export function ReportsPage() {
         topLeft={
           <button type="button" className={styles.backLink} onClick={() => navigate(APP_ROUTES.dashboard)}>
             <ArrowLeftIcon aria-hidden="true" />
-            Повернутись на головну
+            Back to dashboard
           </button>
         }
         topRight={
@@ -145,8 +145,8 @@ export function ReportsPage() {
         {isDemo ? <DemoBanner /> : null}
         {financeError || transactionsError ? <p className={styles.error}>{financeError || transactionsError}</p> : null}
         <MonthlyTotals
-          expenseAmount={formatMoney(-reportData.expenseTotalCents, { currency: 'грн.', spacedSign: true })}
-          incomeAmount={formatMoney(reportData.incomeTotalCents, { currency: 'грн.', showPlus: true, spacedSign: true })}
+          expenseAmount={formatMoney(-reportData.expenseTotalCents, { currency: 'UAH', spacedSign: true })}
+          incomeAmount={formatMoney(reportData.incomeTotalCents, { currency: 'UAH', showPlus: true, spacedSign: true })}
         />
         <div className={styles.insights}>
           <MonthlyComparison items={reportData.comparisonItems} />
@@ -164,10 +164,10 @@ export function ReportsPage() {
 
       <ConfirmModal
         isOpen={pendingBaseBalanceCents !== null}
-        title="Змінити базовий баланс?"
-        description="Введена сума буде встановлена як новий базовий баланс. Уся історія доходів і витрат залишиться без змін та буде врахована поверх цього балансу."
-        confirmLabel="ПІДТВЕРДИТИ"
-        cancelLabel="СКАСУВАТИ"
+        title="Change baseline balance?"
+        description="The entered amount will become the new baseline balance. Your income and expense history will stay unchanged and will be calculated on top of this balance."
+        confirmLabel="CONFIRM"
+        cancelLabel="CANCEL"
         isConfirming={balanceUpdating}
         onCancel={() => setPendingBaseBalanceCents(null)}
         onConfirm={() => void confirmBaseBalance()}
@@ -175,7 +175,7 @@ export function ReportsPage() {
 
       <ConfirmModal
         isOpen={isLogoutOpen}
-        title="Ви дійсно хочете вийти?"
+        title="Do you really want to log out?"
         onCancel={() => setIsLogoutOpen(false)}
         onConfirm={() => void signOutUser().then(() => navigate(APP_ROUTES.root))}
       />

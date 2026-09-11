@@ -8,9 +8,9 @@ const transactions: TransactionItem[] = [
     kind: 'expense',
     date: '2026-07-02',
     monthKey: '2026-07',
-    description: 'Метро',
+    description: 'Metro',
     categoryId: 'transport',
-    categoryName: 'Транспорт',
+    categoryName: 'Transport',
     amountCents: 3000,
     currency: 'UAH',
     createdAt: null,
@@ -21,9 +21,9 @@ const transactions: TransactionItem[] = [
     kind: 'income',
     date: '2026-07-01',
     monthKey: '2026-07',
-    description: 'Зарплата',
+    description: 'Salary',
     categoryId: 'salary',
-    categoryName: 'ЗП',
+    categoryName: 'Salary',
     amountCents: 2000000,
     currency: 'UAH',
     createdAt: null,
@@ -34,9 +34,9 @@ const transactions: TransactionItem[] = [
     kind: 'expense',
     date: '2026-06-22',
     monthKey: '2026-06',
-    description: 'Кава',
+    description: 'Coffee',
     categoryId: 'products',
-    categoryName: 'Продукти',
+    categoryName: 'Groceries',
     amountCents: 9000,
     currency: 'UAH',
     createdAt: null,
@@ -50,19 +50,19 @@ describe('transaction filters', () => {
       monthKey: '2026-07',
       type: 'expense',
       categoryId: 'transport',
-      query: 'мет',
+      query: 'met',
     }).map((transaction) => transaction.id)).toEqual(['1'])
   })
 
   it('supports all transaction types and empty filters', () => {
     expect(filterTransactions(transactions, EMPTY_TRANSACTION_FILTERS)).toHaveLength(3)
-    expect(filterTransactions(transactions, { ...EMPTY_TRANSACTION_FILTERS, type: 'all', query: 'зар' }))
+    expect(filterTransactions(transactions, { ...EMPTY_TRANSACTION_FILTERS, type: 'all', query: 'sal' }))
       .toHaveLength(1)
   })
 
   it('detects active filters', () => {
     expect(hasActiveTransactionFilters(EMPTY_TRANSACTION_FILTERS)).toBe(false)
     expect(hasActiveTransactionFilters({ ...EMPTY_TRANSACTION_FILTERS, type: 'income' })).toBe(true)
-    expect(hasActiveTransactionFilters({ ...EMPTY_TRANSACTION_FILTERS, query: '  кава ' })).toBe(true)
+    expect(hasActiveTransactionFilters({ ...EMPTY_TRANSACTION_FILTERS, query: '  coffee ' })).toBe(true)
   })
 })

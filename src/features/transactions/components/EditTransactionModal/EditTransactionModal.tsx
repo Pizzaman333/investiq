@@ -52,13 +52,13 @@ export function EditTransactionModal({
         className={styles.modal}
         role="dialog"
         aria-modal="true"
-        aria-label="Редагувати операцію"
+        aria-label="Edit transaction"
         onClick={(event) => event.stopPropagation()}
       >
-        <button type="button" className={styles.close} onClick={onClose} aria-label="Закрити" disabled={isSaving}>
+        <button type="button" className={styles.close} onClick={onClose} aria-label="Close" disabled={isSaving}>
           <CloseIcon aria-hidden="true" />
         </button>
-        <h2 className={styles.title}>Редагувати операцію</h2>
+        <h2 className={styles.title}>Edit transaction</h2>
         <Formik
           initialValues={getInitialValues(transaction)}
           validate={(values) => {
@@ -66,21 +66,21 @@ export function EditTransactionModal({
             const amountCents = parseMoneyToCents(values.amount)
 
             if (values.kind !== 'expense' && values.kind !== 'income') {
-              errors.kind = 'Оберіть тип.'
+              errors.kind = 'Choose a type.'
             }
             if (!values.date || !getMonthKey(values.date)) {
-              errors.date = 'Оберіть коректну дату.'
+              errors.date = 'Choose a valid date.'
             }
             if (!values.description.trim()) {
-              errors.description = 'Введіть опис.'
+              errors.description = 'Enter a description.'
             }
             if (!values.categoryId || !getCategory(values.kind, values.categoryId)) {
-              errors.categoryId = 'Оберіть категорію.'
+              errors.categoryId = 'Choose a category.'
             }
             if (!values.amount.trim()) {
-              errors.amount = 'Введіть суму.'
+              errors.amount = 'Enter an amount.'
             } else if (!Number.isSafeInteger(amountCents) || amountCents <= 0) {
-              errors.amount = 'Введіть суму, більшу за 0.'
+              errors.amount = 'Enter an amount greater than 0.'
             }
 
             return errors
@@ -112,7 +112,7 @@ export function EditTransactionModal({
           {({ values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit, setFieldValue }) => (
             <form className={styles.form} onSubmit={handleSubmit}>
               <Select
-                label="Тип:"
+                label="Type:"
                 name="kind"
                 value={values.kind}
                 onChange={(event) => {
@@ -123,12 +123,12 @@ export function EditTransactionModal({
                 disabled={isSaving || isSubmitting}
                 error={touched.kind ? errors.kind : undefined}
                 options={[
-                  { label: 'Витрата', value: 'expense' },
-                  { label: 'Дохід', value: 'income' },
+                  { label: 'Expense', value: 'expense' },
+                  { label: 'Income', value: 'income' },
                 ]}
               />
               <Input
-                label="Дата:"
+                label="Date:"
                 name="date"
                 type="date"
                 value={values.date}
@@ -138,7 +138,7 @@ export function EditTransactionModal({
                 error={touched.date ? errors.date : undefined}
               />
               <Input
-                label="Опис:"
+                label="Description:"
                 name="description"
                 value={values.description}
                 onChange={handleChange}
@@ -147,7 +147,7 @@ export function EditTransactionModal({
                 error={touched.description ? errors.description : undefined}
               />
               <Select
-                label="Категорія:"
+                label="Category:"
                 name="categoryId"
                 value={values.categoryId}
                 onChange={handleChange}
@@ -155,7 +155,7 @@ export function EditTransactionModal({
                 disabled={isSaving || isSubmitting}
                 error={touched.categoryId ? errors.categoryId : undefined}
                 options={[
-                  { label: 'Оберіть категорію', value: '' },
+                  { label: 'Choose a category', value: '' },
                   ...CATEGORIES_BY_KIND[values.kind].map((category) => ({
                     label: category.name,
                     value: category.id,
@@ -163,7 +163,7 @@ export function EditTransactionModal({
                 ]}
               />
               <Input
-                label="Сума:"
+                label="Amount:"
                 name="amount"
                 value={values.amount}
                 onChange={handleChange}
@@ -175,10 +175,10 @@ export function EditTransactionModal({
               {error ? <p className={styles.error}>{error}</p> : null}
               <div className={styles.actions}>
                 <Button type="submit" variant="primary" disabled={isSaving || isSubmitting}>
-                  {isSaving || isSubmitting ? 'ЗБЕРЕЖЕННЯ...' : 'ЗБЕРЕГТИ'}
+                  {isSaving || isSubmitting ? 'SAVING...' : 'SAVE'}
                 </Button>
                 <Button type="button" variant="secondary" disabled={isSaving || isSubmitting} onClick={onClose}>
-                  СКАСУВАТИ
+                  CANCEL
                 </Button>
               </div>
             </form>

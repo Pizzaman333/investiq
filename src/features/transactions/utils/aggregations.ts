@@ -110,13 +110,13 @@ export function getMonthlyComparisonItems(transactions: TransactionItem[], month
   return [
     {
       id: 'expense',
-      label: 'Витрати',
+      label: 'Expenses',
       amountCents: totals.expense,
       valuePercent: maximum > 0 ? (totals.expense / maximum) * 100 : 0,
     },
     {
       id: 'income',
-      label: 'Доходи',
+      label: 'Income',
       amountCents: totals.income,
       valuePercent: maximum > 0 ? (totals.income / maximum) * 100 : 0,
     },

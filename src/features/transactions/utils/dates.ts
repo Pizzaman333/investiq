@@ -1,16 +1,16 @@
-const UKRAINIAN_MONTHS = [
-  'СІЧЕНЬ',
-  'ЛЮТИЙ',
-  'БЕРЕЗЕНЬ',
-  'КВІТЕНЬ',
-  'ТРАВЕНЬ',
-  'ЧЕРВЕНЬ',
-  'ЛИПЕНЬ',
-  'СЕРПЕНЬ',
-  'ВЕРЕСЕНЬ',
-  'ЖОВТЕНЬ',
-  'ЛИСТОПАД',
-  'ГРУДЕНЬ',
+const MONTH_NAMES = [
+  'JANUARY',
+  'FEBRUARY',
+  'MARCH',
+  'APRIL',
+  'MAY',
+  'JUNE',
+  'JULY',
+  'AUGUST',
+  'SEPTEMBER',
+  'OCTOBER',
+  'NOVEMBER',
+  'DECEMBER',
 ] as const
 
 export function getTodayIsoDate() {
@@ -32,8 +32,8 @@ export function getCurrentMonthKey() {
   return getMonthKey(getTodayIsoDate())
 }
 
-export function getUkrainianMonthName(monthIndex: number): string {
-  return UKRAINIAN_MONTHS[monthIndex] ?? ''
+export function getMonthName(monthIndex: number): string {
+  return MONTH_NAMES[monthIndex] ?? ''
 }
 
 export function formatDateForDisplay(date: string): string {
@@ -47,7 +47,7 @@ export function getPeriodInfo(monthKey: string) {
 
   return {
     monthKey,
-    month: getUkrainianMonthName(monthIndex),
+    month: getMonthName(monthIndex),
     year: match?.[1] ?? '',
   }
 }

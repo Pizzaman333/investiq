@@ -35,8 +35,8 @@ export function RegisterCard({ onShowLogin }: RegisterCardProps) {
   return (
     <div className={styles.card}>
       <div className={styles.heading}>
-        <h2 className={styles.title}>Створити акаунт</h2>
-        <p className={styles.copy}>Заповніть форму нижче або скористайтеся Google, щоб почати роботу з InvestIQ.</p>
+        <h2 className={styles.title}>Create an account</h2>
+        <p className={styles.copy}>Fill out the form below or use Google to start using InvestIQ.</p>
       </div>
 
       <button
@@ -59,21 +59,21 @@ export function RegisterCard({ onShowLogin }: RegisterCardProps) {
           const errors: Partial<Record<keyof RegisterFormValues, string>> = {}
 
           if (!values.email.trim()) {
-            errors.email = 'Введіть email.'
+            errors.email = 'Enter your email.'
           }
 
           if (!values.username.trim()) {
-            errors.username = "Введіть ім'я користувача."
+            errors.username = 'Enter your username.'
           }
 
           if (!values.password) {
-            errors.password = 'Введіть пароль.'
+            errors.password = 'Enter your password.'
           }
 
           if (!values.passwordConfirmation) {
-            errors.passwordConfirmation = 'Підтвердіть пароль.'
+            errors.passwordConfirmation = 'Confirm your password.'
           } else if (values.passwordConfirmation !== values.password) {
-            errors.passwordConfirmation = 'Паролі не співпадають.'
+            errors.passwordConfirmation = 'Passwords do not match.'
           }
 
           return errors
@@ -95,7 +95,7 @@ export function RegisterCard({ onShowLogin }: RegisterCardProps) {
         {({ values, errors, touched, isSubmitting, handleChange, handleBlur, handleSubmit }) => (
           <form className={styles.form} onSubmit={handleSubmit}>
             <Input
-              label="Електронна пошта:"
+              label="Email:"
               name="email"
               type="email"
               placeholder="your@email.com"
@@ -105,30 +105,30 @@ export function RegisterCard({ onShowLogin }: RegisterCardProps) {
               error={touched.email ? errors.email : undefined}
             />
             <Input
-              label="Ім'я користувача:"
+              label="Username:"
               name="username"
               type="text"
-              placeholder="Ваше ім'я"
+              placeholder="Your name"
               value={values.username}
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.username ? errors.username : undefined}
             />
             <Input
-              label="Пароль:"
+              label="Password:"
               name="password"
               type="password"
-              placeholder="Пароль"
+              placeholder="Password"
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.password ? errors.password : undefined}
             />
             <Input
-              label="Підтвердження паролю:"
+              label="Confirm password:"
               name="passwordConfirmation"
               type="password"
-              placeholder="Повторіть пароль"
+              placeholder="Repeat password"
               value={values.passwordConfirmation}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -139,17 +139,17 @@ export function RegisterCard({ onShowLogin }: RegisterCardProps) {
 
             <div className={styles.actions}>
               <Button type="submit" variant="primary" fullWidth disabled={isSubmitting}>
-                ЗАРЕЄСТРУВАТИСЯ
+                CREATE ACCOUNT
               </Button>
               <Button type="button" variant="secondary" fullWidth onClick={onShowLogin}>
-                ДО ВХОДУ
+                BACK TO SIGN IN
               </Button>
             </div>
           </form>
         )}
       </Formik>
 
-      <p className={styles.footer}>Вже маєте акаунт? <button className={styles.link} type="button" onClick={onShowLogin}>Увійти</button></p>
+      <p className={styles.footer}>Already have an account? <button className={styles.link} type="button" onClick={onShowLogin}>Sign in</button></p>
     </div>
   )
 }

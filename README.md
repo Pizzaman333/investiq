@@ -1,13 +1,13 @@
 # InvestIQ
 
-InvestIQ is a personal finance tracker built with React, TypeScript, Vite, Firebase Auth, and Firestore. It helps users track income, expenses, baseline balance, monthly summaries, and category-based reports in a polished Ukrainian-language interface.
+InvestIQ is a personal finance tracker built with React, TypeScript, Vite, Firebase Auth, and Firestore. It helps users track income, expenses, baseline balance, monthly summaries, and category-based reports in a polished English-language interface.
 
 This project is designed as a portfolio-ready frontend application: it includes real authentication, per-user cloud data, typed finance utilities, responsive UI, local demo access, and test coverage for the core money/reporting logic.
 
 ## Live Demo
 
 - **Production:** [https://pizzaman333.github.io/investiq/](https://pizzaman333.github.io/investiq/)
-- **Demo access:** click **“Спробувати демо без реєстрації”** on the login screen.
+- **Demo access:** click **“Try demo without registration”** on the login screen.
 
 The demo mode uses local seeded data only. It does not expose personal data, does not require Firebase login, and may reset when the session is refreshed or reopened.
 
@@ -31,7 +31,7 @@ The demo mode uses local seeded data only. It does not expose personal data, doe
 - Client-side dashboard filters by month, type, category, and description.
 - Monthly summary panel and responsive transaction table/list.
 - Reports with income-vs-expense comparison, top categories, category grid, and chart breakdown by description.
-- Ukrainian UI text, UAH formatting, and integer-cent money calculations.
+- English UI text, UAH formatting, and integer-cent money calculations.
 - CSS Modules, tokenized global styles, and inline SVG icons with hover/active states.
 
 ## Tech Stack

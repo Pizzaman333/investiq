@@ -12,8 +12,8 @@ export function TopCategories({ kind, items }: TopCategoriesProps) {
   return (
     <section className={styles.card}>
       <div>
-        <p className={styles.eyebrow}>Топ категорій</p>
-        <h2 className={styles.title}>{kind === 'expense' ? 'Найбільші витрати' : 'Найбільші доходи'}</h2>
+        <p className={styles.eyebrow}>Top categories</p>
+        <h2 className={styles.title}>{kind === 'expense' ? 'Highest expenses' : 'Highest income'}</h2>
       </div>
       {items.length > 0 ? (
         <div className={styles.list}>
@@ -23,7 +23,7 @@ export function TopCategories({ kind, items }: TopCategoriesProps) {
               <div className={styles.meta}>
                 <div className={styles.header}>
                   <span>{item.label}</span>
-                  <strong>{formatMoney(item.amountCents, { currency: 'грн.' })}</strong>
+                  <strong>{formatMoney(item.amountCents, { currency: 'UAH' })}</strong>
                 </div>
                 <span className={styles.track}>
                   <span className={styles.bar} style={{ width: `${Math.max(item.valuePercent, 6)}%` }} />
@@ -33,7 +33,7 @@ export function TopCategories({ kind, items }: TopCategoriesProps) {
           ))}
         </div>
       ) : (
-        <p className={styles.empty}>Немає категорій з даними за цей період.</p>
+        <p className={styles.empty}>No categories with data for this period.</p>
       )}
     </section>
   )

@@ -27,12 +27,12 @@ export function BalanceControl({
 }: BalanceControlProps) {
   return (
     <div className={styles.balance}>
-      <span className={styles.label}>Баланс:</span>
+      <span className={styles.label}>Balance:</span>
       {isEditing ? (
         <input
           autoFocus
           className={styles.input}
-          aria-label="Новий базовий баланс"
+          aria-label="New baseline balance"
           inputMode="decimal"
           value={draftValue}
           onChange={(event: ChangeEvent<HTMLInputElement>) => onDraftChange(event.target.value)}
@@ -42,13 +42,13 @@ export function BalanceControl({
           type="button"
           className={[styles.value, isNegative ? styles.negative : ''].filter(Boolean).join(' ')}
           onClick={onEditStart}
-          title="Змінити базовий баланс"
+          title="Change baseline balance"
         >
           {amount}
         </button>
       )}
       <Button variant="ghost" className={styles.button} disabled={actionDisabled} onClick={onConfirm}>
-        ПІДТВЕРДИТИ
+        CONFIRM
       </Button>
       {error ? <span className={styles.error}>{error}</span> : null}
     </div>

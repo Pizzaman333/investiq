@@ -100,7 +100,7 @@ export function DashboardPage() {
     const kinds: TransactionKind[] = filters.type === 'all' ? ['expense', 'income'] : [filters.type]
     return kinds.flatMap((kind) =>
       CATEGORIES_BY_KIND[kind].map((category) => ({
-        label: `${category.name}${filters.type === 'all' ? ` (${kind === 'expense' ? 'витрата' : 'дохід'})` : ''}`,
+        label: `${category.name}${filters.type === 'all' ? ` (${kind === 'expense' ? 'expense' : 'income'})` : ''}`,
         value: category.id,
       })),
     )
@@ -112,7 +112,7 @@ export function DashboardPage() {
   }
 
   if (!isDemo && (financeLoading || transactionsLoading)) {
-    return <Loader show message="Завантаження фінансів..." />
+    return <Loader show message="Loading finances..." />
   }
 
   const showBalanceHint =
@@ -129,7 +129,7 @@ export function DashboardPage() {
   function requestBalanceConfirmation() {
     const parsedCents = parseMoneyToCents(balanceDraft)
     if (!Number.isSafeInteger(parsedCents)) {
-      setBalanceInputError('Введіть коректну суму.')
+      setBalanceInputError('Enter a valid amount.')
       return
     }
 
@@ -162,7 +162,7 @@ export function DashboardPage() {
       : await removeFirebaseTransaction(transactionToDelete.id)
     if (deleted) {
       setTransactionToDelete(null)
-      setFeedbackMessage('Операцію видалено.')
+      setFeedbackMessage('Transaction deleted.')
     }
   }
 
@@ -171,7 +171,7 @@ export function DashboardPage() {
       ? await demo.addTransaction(draft)
       : await addFirebaseTransaction(draft)
     if (saved) {
-      setFeedbackMessage('Операцію додано.')
+      setFeedbackMessage('Transaction added.')
     }
     return saved
   }
@@ -181,7 +181,7 @@ export function DashboardPage() {
       ? await demo.updateTransaction(transactionId, draft)
       : await updateExistingTransaction(transactionId, draft)
     if (saved) {
-      setFeedbackMessage('Операцію оновлено.')
+      setFeedbackMessage('Transaction updated.')
     }
     return saved
   }
@@ -229,7 +229,7 @@ export function DashboardPage() {
         onLogout={() => setIsLogoutOpen(true)}
         topRight={
           <button type="button" className={styles.reportsLink} onClick={() => navigate(APP_ROUTES.reports)}>
-            Перейти до розрахунків
+            Go to reports
             <ChartBarsIcon aria-hidden="true" />
           </button>
         }
@@ -242,7 +242,7 @@ export function DashboardPage() {
               <button
                 type="button"
                 className={styles.mobileHintClose}
-                aria-label="Закрити підказку"
+                aria-label="Close hint"
                 onClick={() => {
                   dismissBalanceHint(profile.uid)
                   setClosedHintForUid(profile.uid)
@@ -250,8 +250,8 @@ export function DashboardPage() {
               >
                 <CloseIcon aria-hidden="true" />
               </button>
-              <p className={styles.mobileHintTitle}>Підтвердіть базовий баланс для точніших підсумків.</p>
-              <p className={styles.mobileHintText}>Доходи й витрати можна додавати вже зараз, навіть якщо баланс ще не підтверджено.</p>
+              <p className={styles.mobileHintTitle}>Confirm your baseline balance for more accurate totals.</p>
+              <p className={styles.mobileHintText}>You can add income and expenses now, even before confirming the balance.</p>
             </div>
           </div>
         ) : null}
@@ -266,45 +266,45 @@ export function DashboardPage() {
               error={isDemo ? '' : transactionMutationError}
               onSubmit={handleCreateTransaction}
             />
-            <section className={styles.filters} aria-label="Фільтри транзакцій">
+            <section className={styles.filters} aria-label="Transaction filters">
               <Select
-                label="Місяць"
+                label="Month"
                 value={filters.monthKey}
                 onChange={(event) => setFilters((currentFilters) => ({
                   ...currentFilters,
                   monthKey: event.target.value,
                 }))}
                 options={[
-                  { label: 'Усі місяці', value: '' },
+                  { label: 'All months', value: '' },
                   ...monthOptions,
                 ]}
               />
               <Select
-                label="Тип"
+                label="Type"
                 value={filters.type}
                 onChange={(event) => setTypeFilter(event.target.value as TransactionTypeFilter)}
                 options={[
-                  { label: 'Усі', value: 'all' },
-                  { label: 'Витрати', value: 'expense' },
-                  { label: 'Доходи', value: 'income' },
+                  { label: 'All', value: 'all' },
+                  { label: 'Expenses', value: 'expense' },
+                  { label: 'Income', value: 'income' },
                 ]}
               />
               <Select
-                label="Категорія"
+                label="Category"
                 value={filters.categoryId}
                 onChange={(event) => setFilters((currentFilters) => ({
                   ...currentFilters,
                   categoryId: event.target.value,
                 }))}
                 options={[
-                  { label: 'Усі категорії', value: '' },
+                  { label: 'All categories', value: '' },
                   ...categoryOptions,
                 ]}
               />
               <Input
-                label="Пошук"
+                label="Search"
                 value={filters.query}
-                placeholder="Пошук за описом"
+                placeholder="Search by description"
                 onChange={(event) => setFilters((currentFilters) => ({
                   ...currentFilters,
                   query: event.target.value,
@@ -317,7 +317,7 @@ export function DashboardPage() {
                 disabled={!hasFilters}
                 onClick={() => setFilters(initialFilters)}
               >
-                ОЧИСТИТИ
+                CLEAR
               </Button>
             </section>
             <div className={styles.content}>
@@ -327,7 +327,7 @@ export function DashboardPage() {
                 error={transactionsError || financeError}
                 deletingId={deletingId}
                 updatingId={updatingId}
-                emptyMessage={hasFilters ? 'За цими фільтрами операцій немає.' : 'Операцій поки немає.'}
+                emptyMessage={hasFilters ? 'No transactions match these filters.' : 'No transactions yet.'}
                 onEdit={setTransactionToEdit}
                 onDelete={setTransactionToDelete}
               />
@@ -339,10 +339,10 @@ export function DashboardPage() {
 
       <ConfirmModal
         isOpen={pendingBaseBalanceCents !== null}
-        title="Змінити базовий баланс?"
-        description="Введена сума буде встановлена як новий базовий баланс. Уся історія доходів і витрат залишиться без змін та буде врахована поверх цього балансу."
-        confirmLabel="ПІДТВЕРДИТИ"
-        cancelLabel="СКАСУВАТИ"
+        title="Change baseline balance?"
+        description="The entered amount will become the new baseline balance. Your income and expense history will stay unchanged and will be calculated on top of this balance."
+        confirmLabel="CONFIRM"
+        cancelLabel="CANCEL"
         isConfirming={balanceUpdating}
         onCancel={() => setPendingBaseBalanceCents(null)}
         onConfirm={() => void confirmBaseBalance()}
@@ -350,8 +350,8 @@ export function DashboardPage() {
 
       <ConfirmModal
         isOpen={transactionToDelete !== null}
-        title="Ви впевнені?"
-        description={transactionToDelete ? `Операцію «${transactionToDelete.description}» буде видалено.` : undefined}
+        title="Are you sure?"
+        description={transactionToDelete ? `The transaction “${transactionToDelete.description}” will be deleted.` : undefined}
         isConfirming={Boolean(deletingId)}
         onCancel={() => setTransactionToDelete(null)}
         onConfirm={() => void confirmTransactionDelete()}
@@ -367,7 +367,7 @@ export function DashboardPage() {
 
       <ConfirmModal
         isOpen={isLogoutOpen}
-        title="Ви дійсно хочете вийти?"
+        title="Do you really want to log out?"
         onCancel={() => setIsLogoutOpen(false)}
         onConfirm={() => {
           void signOutUser().then(() => navigate(APP_ROUTES.root))

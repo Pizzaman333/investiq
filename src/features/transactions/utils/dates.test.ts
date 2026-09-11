@@ -8,7 +8,7 @@ describe('date utilities', () => {
   })
 
   it('describes and shifts periods across years', () => {
-    expect(getPeriodInfo('2019-11')).toEqual({ monthKey: '2019-11', month: 'ЛИСТОПАД', year: '2019' })
+    expect(getPeriodInfo('2019-11')).toEqual({ monthKey: '2019-11', month: 'NOVEMBER', year: '2019' })
     expect(shiftMonthKey('2019-12', 1)).toBe('2020-01')
     expect(shiftMonthKey('2020-01', -1)).toBe('2019-12')
   })

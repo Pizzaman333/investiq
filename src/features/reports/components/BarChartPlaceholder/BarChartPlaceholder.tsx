@@ -7,7 +7,7 @@ export interface BarChartPlaceholderProps {
   emptyMessage?: string
 }
 
-export function BarChartPlaceholder({ items, emptyMessage = 'Немає даних за цей період.' }: BarChartPlaceholderProps) {
+export function BarChartPlaceholder({ items, emptyMessage = 'No data for this period.' }: BarChartPlaceholderProps) {
   return (
     <section className={styles.chart}>
       {items.length === 0 ? <p className={styles.empty}>{emptyMessage}</p> : null}
@@ -19,7 +19,7 @@ export function BarChartPlaceholder({ items, emptyMessage = 'Немає дани
       <div className={styles.bars}>
         {items.map((item) => (
           <article key={item.id} className={styles.barItem}>
-            <span className={styles.amount}>{formatMoney(item.amountCents, { currency: 'грн.' })}</span>
+            <span className={styles.amount}>{formatMoney(item.amountCents, { currency: 'UAH' })}</span>
             <span
               className={[styles.bar, item.highlight ? styles.highlight : styles.soft].join(' ')}
               style={{ height: `${Math.max(item.valuePercent, 8)}%` }}
@@ -33,7 +33,7 @@ export function BarChartPlaceholder({ items, emptyMessage = 'Немає дани
           <article key={`${item.id}-mobile`} className={styles.mobileItem}>
             <div className={styles.mobileHeader}>
               <span>{item.label}</span>
-              <span>{formatMoney(item.amountCents, { currency: 'грн.' })}</span>
+              <span>{formatMoney(item.amountCents, { currency: 'UAH' })}</span>
             </div>
             <span className={styles.mobileTrack}>
               <span

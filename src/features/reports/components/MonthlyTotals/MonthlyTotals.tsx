@@ -9,12 +9,12 @@ export function MonthlyTotals({ expenseAmount, incomeAmount }: MonthlyTotalsProp
   return (
     <section className={styles.totals}>
       <p>
-        <span className={styles.label}>Витрати:</span>
+        <span className={styles.label}>Expenses:</span>
         <strong className={styles.expense}>{expenseAmount}</strong>
       </p>
       <span className={styles.divider} aria-hidden="true" />
       <p>
-        <span className={styles.label}>Доходи:</span>
+        <span className={styles.label}>Income:</span>
         <strong className={styles.income}>{incomeAmount}</strong>
       </p>
     </section>

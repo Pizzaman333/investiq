@@ -14,14 +14,14 @@ export function TransactionTabs({ activeKind, onChange }: TransactionTabsProps) 
         className={[styles.tab, activeKind === 'expense' ? styles.activeExpense : ''].join(' ')}
         onClick={() => onChange('expense')}
       >
-        ВИТРАТИ
+        EXPENSES
       </button>
       <button
         type="button"
         className={[styles.tab, activeKind === 'income' ? styles.activeIncome : ''].join(' ')}
         onClick={() => onChange('income')}
       >
-        ДОХІД
+        INCOME
       </button>
     </div>
   )

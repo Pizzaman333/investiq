@@ -18,8 +18,8 @@ export function ConfirmModal({
   isOpen,
   title,
   description,
-  confirmLabel = 'ТАК',
-  cancelLabel = 'НІ',
+  confirmLabel = 'YES',
+  cancelLabel = 'NO',
   confirmDisabled = false,
   isConfirming = false,
   onConfirm,
@@ -38,14 +38,14 @@ export function ConfirmModal({
         aria-label={title}
         onClick={(event) => event.stopPropagation()}
       >
-        <button type="button" className={styles.close} onClick={onCancel} aria-label="Закрити" disabled={isConfirming}>
+        <button type="button" className={styles.close} onClick={onCancel} aria-label="Close" disabled={isConfirming}>
           <CloseIcon aria-hidden="true" />
         </button>
         <p className={styles.title}>{title}</p>
         {description ? <p className={styles.description}>{description}</p> : null}
         <div className={styles.actions}>
           <Button variant="primary" className={styles.action} onClick={onConfirm} disabled={confirmDisabled || isConfirming}>
-            {isConfirming ? 'ЗБЕРЕЖЕННЯ...' : confirmLabel}
+            {isConfirming ? 'SAVING...' : confirmLabel}
           </Button>
           <Button variant="secondary" className={styles.action} onClick={onCancel} disabled={isConfirming}>
             {cancelLabel}

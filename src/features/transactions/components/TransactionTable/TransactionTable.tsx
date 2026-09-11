@@ -23,21 +23,21 @@ export function TransactionTable({
   error,
   deletingId,
   updatingId,
-  emptyMessage = 'Операцій поки немає.',
+  emptyMessage = 'No transactions yet.',
   onEdit,
   onDelete,
 }: TransactionTableProps) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.headerRow}>
-        <span>ДАТА</span>
-        <span>ОПИС</span>
-        <span>КАТЕГОРІЯ</span>
-        <span>СУМА</span>
-        <span aria-label="Дії" />
+        <span>DATE</span>
+        <span>DESCRIPTION</span>
+        <span>CATEGORY</span>
+        <span>AMOUNT</span>
+        <span aria-label="Actions" />
       </div>
       <div className={styles.body}>
-        {loading ? <p className={styles.empty}>Завантаження операцій...</p> : null}
+        {loading ? <p className={styles.empty}>Loading transactions...</p> : null}
         {!loading && error ? <p className={styles.empty}>{error}</p> : null}
         {!loading && !error && items.length === 0 ? <p className={styles.empty}>{emptyMessage}</p> : null}
         {!loading && items.map((item) => (
@@ -47,7 +47,7 @@ export function TransactionTable({
             <span>{item.categoryName}</span>
             <strong className={item.kind === 'expense' ? styles.expense : styles.income}>
               {formatMoney(item.kind === 'expense' ? -item.amountCents : item.amountCents, {
-                currency: 'грн.',
+                currency: 'UAH',
                 showPlus: item.kind === 'income',
                 spacedSign: true,
               })}
@@ -56,7 +56,7 @@ export function TransactionTable({
               <button
                 type="button"
                 className={styles.edit}
-                aria-label={`Редагувати ${item.description}`}
+                aria-label={`Edit ${item.description}`}
                 disabled={Boolean(deletingId || updatingId)}
                 onClick={() => onEdit(item)}
               >
@@ -65,7 +65,7 @@ export function TransactionTable({
               <button
                 type="button"
                 className={styles.delete}
-                aria-label={`Видалити ${item.description}`}
+                aria-label={`Delete ${item.description}`}
                 disabled={Boolean(deletingId || updatingId)}
                 onClick={() => onDelete(item)}
               >

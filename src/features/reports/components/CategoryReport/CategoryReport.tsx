@@ -54,11 +54,11 @@ export function CategoryReport({ kind, items, selectedCategoryId, onToggle, onSe
   return (
     <section className={styles.section}>
       <div className={styles.header}>
-        <button type="button" className={styles.arrow} onClick={onToggle} aria-label="Перемкнути звіт">
+        <button type="button" className={styles.arrow} onClick={onToggle} aria-label="Switch report">
           <ChevronLeftIcon aria-hidden="true" />
         </button>
-        <h2>{kind === 'expense' ? 'ВИТРАТИ' : 'ДОХОДИ'}</h2>
-        <button type="button" className={styles.arrow} onClick={onToggle} aria-label="Перемкнути звіт">
+        <h2>{kind === 'expense' ? 'EXPENSES' : 'INCOME'}</h2>
+        <button type="button" className={styles.arrow} onClick={onToggle} aria-label="Switch report">
           <ChevronRightIcon aria-hidden="true" />
         </button>
       </div>

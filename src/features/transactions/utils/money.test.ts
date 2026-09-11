@@ -23,6 +23,6 @@ describe('formatMoney', () => {
   it('formats signs, grouping, and currency', () => {
     expect(formatMoney(5500000, { currency: 'UAH' })).toBe('55 000.00 UAH')
     expect(formatMoney(-150000, { currency: 'UAH' })).toBe('-1 500.00 UAH')
-    expect(formatMoney(2000000, { currency: 'грн.', showPlus: true })).toBe('+20 000.00 грн.')
+    expect(formatMoney(2000000, { currency: 'UAH', showPlus: true })).toBe('+20 000.00 UAH')
   })
 })

@@ -22,7 +22,7 @@ export function Header({ onLogout, username }: HeaderProps) {
           <span className={styles.avatar}>{avatarLetter}</span>
           <span className={styles.name}>{displayName}</span>
           <button type="button" className={styles.logout} onClick={onLogout}>
-            <span className={styles.logoutText}>Вийти</span>
+            <span className={styles.logoutText}>Log out</span>
             <LogoutIcon className={styles.logoutIcon} aria-hidden="true" />
           </button>
         </div>

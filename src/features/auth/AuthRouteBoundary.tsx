@@ -4,7 +4,7 @@ import { Loader } from '../../shared/ui/Loader/Loader'
 import { useAuth } from './useAuth'
 
 function RouteLoadingState() {
-  return <Loader show message="Завантаження..." />
+  return <Loader show message="Loading..." />
 }
 
 export function ProtectedRoute() {

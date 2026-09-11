@@ -10,10 +10,10 @@ export function MonthlyComparison({ items }: MonthlyComparisonProps) {
   const hasData = items.some((item) => item.amountCents > 0)
 
   return (
-    <section className={styles.card} aria-label="Порівняння доходів та витрат">
+    <section className={styles.card} aria-label="Income and expense comparison">
       <div>
-        <p className={styles.eyebrow}>Огляд місяця</p>
-        <h2 className={styles.title}>Доходи проти витрат</h2>
+        <p className={styles.eyebrow}>Monthly overview</p>
+        <h2 className={styles.title}>Income vs expenses</h2>
       </div>
       {hasData ? (
         <div className={styles.rows}>
@@ -23,7 +23,7 @@ export function MonthlyComparison({ items }: MonthlyComparisonProps) {
                 <span>{item.label}</span>
                 <strong className={item.id === 'expense' ? styles.expense : styles.income}>
                   {formatMoney(item.id === 'expense' ? -item.amountCents : item.amountCents, {
-                    currency: 'грн.',
+                    currency: 'UAH',
                     showPlus: item.id === 'income',
                     spacedSign: true,
                   })}
@@ -39,7 +39,7 @@ export function MonthlyComparison({ items }: MonthlyComparisonProps) {
           ))}
         </div>
       ) : (
-        <p className={styles.empty}>Немає доходів або витрат за цей період.</p>
+        <p className={styles.empty}>No income or expenses for this period.</p>
       )}
     </section>
   )

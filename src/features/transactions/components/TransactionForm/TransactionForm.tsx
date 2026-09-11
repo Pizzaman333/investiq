@@ -44,12 +44,12 @@ export function TransactionForm({ kind, calculatorIcon, isSaving, error, onSubmi
   const placeholders =
     kind === 'expense'
       ? {
-          description: 'Опис товару',
-          category: 'Категорія товару',
+          description: 'Expense description',
+          category: 'Expense category',
         }
       : {
-          description: 'Опис прибутку',
-          category: 'Категорія прибутку',
+          description: 'Income description',
+          category: 'Income category',
         }
 
   return (
@@ -61,18 +61,18 @@ export function TransactionForm({ kind, calculatorIcon, isSaving, error, onSubmi
         const amountCents = parseMoneyToCents(values.amount)
 
         if (!values.date || !getMonthKey(values.date)) {
-          errors.date = 'Оберіть коректну дату.'
+          errors.date = 'Choose a valid date.'
         }
         if (!values.description.trim()) {
-          errors.description = 'Введіть опис.'
+          errors.description = 'Enter a description.'
         }
         if (!values.categoryId) {
-          errors.categoryId = 'Оберіть категорію.'
+          errors.categoryId = 'Choose a category.'
         }
         if (!values.amount.trim()) {
-          errors.amount = 'Введіть суму.'
+          errors.amount = 'Enter an amount.'
         } else if (!Number.isSafeInteger(amountCents) || amountCents <= 0) {
-          errors.amount = 'Введіть суму, більшу за 0.'
+          errors.amount = 'Enter an amount greater than 0.'
         }
 
         return errors
@@ -125,7 +125,7 @@ export function TransactionForm({ kind, calculatorIcon, isSaving, error, onSubmi
                 onChange={handleChange}
                 onBlur={handleBlur}
                 disabled={isSaving || isSubmitting}
-                aria-label="Дата транзакції"
+                aria-label="Transaction date"
                 aria-invalid={Boolean(dateError)}
                 aria-describedby={dateError ? `${errorIdPrefix}-date-error` : undefined}
               />
@@ -202,7 +202,7 @@ export function TransactionForm({ kind, calculatorIcon, isSaving, error, onSubmi
             {error ? <p className={styles.formError}>{error}</p> : null}
             <div className={styles.actions}>
               <Button type="submit" variant="primary" disabled={isSaving || isSubmitting}>
-                {isSaving || isSubmitting ? 'ЗБЕРЕЖЕННЯ...' : 'ВВЕСТИ'}
+                {isSaving || isSubmitting ? 'SAVING...' : 'ADD'}
               </Button>
               <Button
                 type="button"
@@ -210,7 +210,7 @@ export function TransactionForm({ kind, calculatorIcon, isSaving, error, onSubmi
                 disabled={isSaving || isSubmitting}
                 onClick={() => void setValues({ date: values.date, description: '', categoryId: '', amount: '' })}
               >
-                ОЧИСТИТИ
+                CLEAR
               </Button>
             </div>
           </form>
